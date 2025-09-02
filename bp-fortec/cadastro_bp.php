@@ -87,18 +87,189 @@ $resultSetores = $conexao->query($sqlSetores);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <style>
-        .modal-header, .btn-primary, .btn-success {
-            background-color: #007bff;
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #441281; /* Cor roxa escura */
+            z-index: 1000;
+            border-radius: 0 0 15px 15px; /* Borda arredondada no fundo */
+        }
+        .navbar .navbar-brand {
+            color: #f5ad00; /* Cor amarela */
+        }
+        .navbar .navbar-nav .nav-link {
+            color: #f5ad00;
+            transition: background-color 0.3s ease;
+            border-radius: 5px; /* Borda arredondada nos links do menu */
+            padding: 10px 30px; /* Espaçamento dentro dos links */
+        }
+        .navbar .navbar-nav .nav-link:hover {
+            background-color: #f5ad00;
+            color: #441281;
+        }
+        .btn-danger {
+            background-color: #e74c3c; /* Botão sair vermelho */
+            border-radius: 5px; /* Borda arredondada */
+            padding: 10px 30px;
+        }
+        /* Borda arredondada nos botões do menu */
+        .navbar .navbar-nav .nav-link {
+            border-radius: 15px;
+        }
+        .container-fluid {
+            background: #441281; /* Cor roxa escura */
+        }
+        .navbar-toggler {
+            background-color: #f5ad00; /* Cor amarela para o ícone do menu */
+        }
+
+        /* Modificação para botões com mesma largura */
+        .btn-sm {
+            width: 100%; /* Faz os botões ocupar toda a largura disponível */
+        }
+
+        /* Cores principais */
+        :root {
+            --primary-color: #441281;
+            --secondary-color: #915ad3;
+            --highlight-color: #f5ad00;
+            --bg-color: #441281;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            margin-top: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .btn-primary, .btn-success, .btn-danger {
+            border-radius: 20px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-success {
+            background-color: var(--highlight-color);
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #f39c12;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .table {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .table tbody tr {
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            border-radius: 20px;
+        }
+
+        /* Modais */
+        .modal-content {
+            border-radius: 8px;
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .modal-footer button {
+            border-radius: 20px;
+        }
+
+        .close {
             color: #fff;
+            font-size: 30px;
         }
-        .table th, .table td {
-            text-align: center;
-            vertical-align: middle;
-        }
+
     </style>
 </head>
 <body>
-    <div class="container mt-5">
+<nav class="navbar navbar-expand navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">CONTROLE BP's</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto"> <!-- Centralizar os botões do menu -->
+                <li class="nav-item">
+                        <a class="nav-link" href="sistema.php">Início</a>
+                    </li>                    
+                <li class="nav-item">    
+                <li class="nav-item">
+                        <a class="nav-link" href="cadastro_bp.php">Cadastro BP</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cadastro_usuario.php">Cadastro Usuário</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="cadastro_setor.php">Cadastro Setor</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="solicitacoes_alteracoes.php">Solicitação de Alteração</a>
+                    </li>
+                </ul>
+                <a href="sair.php" class="btn btn-danger me-5">Sair</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="container">
         <h2 class="text-center mb-4">Cadastro e Gerenciamento de BPs</h2>
 
         <form method="POST" class="form-inline mb-3">
@@ -116,7 +287,7 @@ $resultSetores = $conexao->query($sqlSetores);
 
         <!-- Tabela de BPs -->
         <table class="table table-bordered">
-            <thead class="thead-dark">
+            <thead class="thead">
                 <tr>
                     <th>ID</th>
                     <th>Descrição</th>

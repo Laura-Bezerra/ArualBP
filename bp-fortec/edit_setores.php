@@ -32,7 +32,7 @@ $resultUsuarios = $conexao->query($sqlUsuarios);
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
-            background-image: linear-gradient(to right, rgb(20, 147, 220), rgb(17, 54, 71));
+            background-color: #915ad3;
         }
         .box {
             color: white;
@@ -40,19 +40,19 @@ $resultUsuarios = $conexao->query($sqlUsuarios);
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: #441281;
             padding: 15px;
             border-radius: 15px;
             width: 20%;
         }
         fieldset {
-            border: 3px solid dodgerblue;
+            border: 3px solid #f5ad00;
         }
         legend {
-            border: 1px solid dodgerblue;
+            border: 1px solid #f5ad00;
             padding: 10px;
             text-align: center;
-            background-color: dodgerblue;
+            background-color: #f5ad00;
             border-radius: 8px;
         }
         .inputBox {
@@ -79,7 +79,7 @@ $resultUsuarios = $conexao->query($sqlUsuarios);
         .inputUser:valid ~ .labelInput {
             top: -20px;
             font-size: 12px;
-            color: dodgerblue;
+            color: #f5ad00;
         }
         #data_nascimento {
             border: none;
@@ -89,7 +89,7 @@ $resultUsuarios = $conexao->query($sqlUsuarios);
             font-size: 15px;
         }
         #submit {
-            background-image: linear-gradient(to right, rgb(0, 92, 197), rgb(90, 20, 220));
+            background-color: #f5ad00;
             width: 100%;
             border: none;
             padding: 15px;
@@ -99,12 +99,28 @@ $resultUsuarios = $conexao->query($sqlUsuarios);
             border-radius: 10px;
         }
         #submit:hover {
-            background-image: linear-gradient(to right, rgb(0, 80, 172), rgb(80, 19, 195));
+            background-color: #915ad3;
         }
+        .backButton {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: #f5ad00;
+            color: #441281;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .backButton:hover {
+            background-color: #d9d9d9;
+        }
+
     </style>
 </head>
 <body>
-    <a href="cadastro_setor.php" style="color: white; margin: 20px; display: inline-block;">Voltar</a>
+    <a href="cadastro_setor.php" class="backButton">Voltar</a>
     <div class="box">
         <form action="saveEdit_setores.php" method="POST">
             <fieldset>
