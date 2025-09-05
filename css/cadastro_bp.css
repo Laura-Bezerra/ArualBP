@@ -1,0 +1,105 @@
+   
+        :root {
+            --primary-color: #441281;
+            --secondary-color: #915ad3;
+            --highlight-color: #f5ad00;
+            --bg-color: #441281;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            margin-top: 100px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .btn-primary, .btn-success, .btn-danger {
+            border-radius: 20px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-success {
+            background-color: var(--highlight-color);
+            border: none;
+        }
+
+        .btn-success:hover {
+            background-color: #f39c12;
+        }
+
+        .btn-danger {
+            background-color: #e74c3c;
+            border: none;
+        }
+
+        .btn-danger:hover {
+            background-color: #c0392b;
+        }
+
+        .table {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .table tbody tr {
+            background-color: #fff;
+            transition: background-color 0.3s;
+        }
+
+        .table tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .form-group label {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .form-control {
+            border-radius: 20px;
+        }
+
+        /* Modais */
+        .modal-content {
+            border-radius: 8px;
+        }
+
+        .modal-header {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .modal-footer button {
+            border-radius: 20px;
+        }
+
+        .close {
+            color: #fff;
+            font-size: 30px;
+        }
