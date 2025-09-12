@@ -1,0 +1,121 @@
+ 
+        /* Navbar */
+    
+        /* Estilo do contêiner principal */
+        body{
+            font-family: 'Roboto', sans-serif;
+            background-color: #d9d9d9;
+            color: #441281;
+        }
+       
+        .formulario-usuario {            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 80px;
+        }
+        .container {
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            margin: 20px;
+        }
+
+        form {
+            margin-bottom: 20px;
+        }
+        fieldset {
+            border: none;
+            padding: 0;
+        }
+        legend {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-align: center;
+            color: #441281;
+        }
+        .inputBox {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .inputUser {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #915ad3;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            color: #441281;
+            outline: none;
+            transition: all 0.3s;
+        }
+        .inputUser:focus {
+            border-color: #f5ad00;
+        }
+        label {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #915ad3;
+            pointer-events: none;
+            transition: all 0.3s;
+        }
+        .inputUser:focus + label,
+        .inputUser:not(:placeholder-shown) + label {
+            top: -10px;
+            left: 5px;
+            font-size: 0.9em;
+            color: #f5ad00;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #915ad3;
+            border-radius: 5px;
+            background-color: #f5f5f5;
+            color: #441281;
+            outline: none;
+        }
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #f5ad00;
+            color: #ffffff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #e59c00;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #915ad3;
+        }
+        th {
+            background-color: #915ad3;
+            color: #ffffff;
+        }
+        tr:nth-child(even) {
+            background-color: #f5f5f5;
+        }
+        a {
+            color: #f5ad00;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    

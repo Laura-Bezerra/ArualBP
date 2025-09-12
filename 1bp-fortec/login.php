@@ -103,7 +103,7 @@
     <div class="login-container">
         <h1>Login</h1>
         <form action="testLogin.php" method="POST">
-            <input type="text" name="email" placeholder="Nome de Usuário">
+            <input type="text" name="usuario" placeholder="Nome de Usuário">
             <input type="password" name="senha" placeholder="Senha">
             <input class="inputSubmit" type="submit" name="submit" value="Entrar">
         </form>

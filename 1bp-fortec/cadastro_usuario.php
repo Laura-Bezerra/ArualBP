@@ -5,13 +5,13 @@ include_once('config.php');
 // Verificando se o formulário foi submetido
 if (isset($_POST['submit'])) {
     $nome = $_POST['nome'];
-    $email = $_POST['email'];
+    $usuario = $_POST['usuario'];
     $senha = $_POST['senha'];
     $nivel_acesso = $_POST['nivel_acesso'];
 
     // Inserindo os dados na tabela 'usuarios'
-    $result = mysqli_query($conexao, "INSERT INTO usuarios(nome, email, senha, nivel_acesso) 
-    VALUES ('$nome', '$email', '$senha', '$nivel_acesso')");
+    $result = mysqli_query($conexao, "INSERT INTO usuarios(nome, usuario, senha, nivel_acesso) 
+    VALUES ('$nome', '$usuario', '$senha', '$nivel_acesso')");
 
     // Redirecionando para a mesma página após o envio
     if ($result) {
@@ -235,8 +235,8 @@ $result2 = $conexao->query($sql);
                     <label for="nome">Nome completo</label>
                 </div>
                 <div class="inputBox">
-                    <input type="text" name="email" id="email" class="inputUser" required>
-                    <label for="email">Nome de Usuário</label>
+                    <input type="text" name="usuario" id="usuario" class="inputUser" required>
+                    <label for="usuario">Nome de Usuário</label>
                 </div>
                 <div class="inputBox">
                     <input type="password" name="senha" id="senha" class="inputUser" required>
@@ -262,7 +262,7 @@ $result2 = $conexao->query($sql);
                     <tr>
                         <th>ID</th>
                         <th>Nome</th>
-                        <th>Email</th>
+                        <th>usuario</th>
                         <th>Nível de Acesso</th>
                         <th>Ações</th>
                     </tr>
@@ -273,7 +273,7 @@ $result2 = $conexao->query($sql);
         echo "<tr>";
         echo "<td>".$user_data['id']."</td>";
         echo "<td>".$user_data['nome']."</td>";
-        echo "<td>".$user_data['email']."</td>";
+        echo "<td>".$user_data['usuario']."</td>";
         echo "<td>".$user_data['nivel_acesso']."</td>";
         echo "<td>
             <a href='edit_usuarios.php?id=".$user_data['id']."'>Editar</a> | 

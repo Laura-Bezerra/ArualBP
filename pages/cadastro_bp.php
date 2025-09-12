@@ -5,12 +5,17 @@ include '../includes/navbar.php';
 
 $setor_id = $_POST['setor_id'] ?? ($_GET['setor_id'] ?? '');
 
+
 $sqlSetores = "SELECT * FROM setores ORDER BY nome ASC";
 $resultSetores = $conexao->query($sqlSetores);
 
-$sqlBens = $setor_id ? "SELECT * FROM bps WHERE setor_id = '$setor_id'" : "SELECT * FROM bps";
+$sqlBens = $setor_id 
+    ? "SELECT * FROM bps WHERE setor_id = '$setor_id'" 
+    : "SELECT * FROM bps WHERE 1=0";
+
 $resultBens = $conexao->query($sqlBens);
 ?>
+
 
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -20,21 +25,26 @@ $resultBens = $conexao->query($sqlBens);
 <body>
     <div class="container">
         <h2 class="text-center mb-4">Cadastro e Gerenciamento de BPs</h2>
-
+        
         <form method="POST" class="form-inline mb-3">
             <label for="setor">Selecione o Setor:</label>
             <select name="setor_id" id="setor" class="form-control">
                 <option value="">Selecione o setor</option>
                 <?php while ($setor = $resultSetores->fetch_assoc()): ?>
-                    <option value="<?= $setor['id'] ?>" <?= $setor['id'] == $setor_id ? 'selected' : '' ?>><?= $setor['nome'] ?></option>
+                    <option value="<?= $setor['id'] ?>" <?= $setor['id'] == $setor_id ? 'selected' : '' ?>>
+                        <?= $setor['nome'] ?>
+                    </option>
                 <?php endwhile; ?>
             </select>
             <button type="submit" class="btn btn-primary">Filtrar</button>
         </form>
 
-        <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#addModal">Adicionar Novo BP</button>
+        <?php if (!empty($setor_id)): ?>
+            <button type="button" class="btn btn-success mb-3" data-toggle="modal" data-target="#addModal">
+                Adicionar Novo BP
+            </button>   
+        <?php endif; ?>
 
-        <!-- tabela -->
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -66,7 +76,8 @@ $resultBens = $conexao->query($sqlBens);
                                 data-local="<?= $bp['local'] ?>">
                             Editar
                         </button>
-                        <a href="../actions/bp_actions.php?delete_id=<?= $bp['id'] ?>&setor_id=<?= $setor_id ?>" class="btn btn-danger btn-sm">Excluir</a>
+                        <a href="../actions/bp_actions.php?delete_id=<?= $bp['id'] ?>&setor_id=<?= $setor_id ?>" 
+                           class="btn btn-danger btn-sm">Excluir</a>
                     </td>
                 </tr>
                 <?php endwhile; ?>

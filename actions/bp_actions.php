@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $setor_id = $_POST['setor_id'];
 
     if ($id) {
-        // Atualiza
         $sql = "UPDATE bps 
                 SET descricao=?, marca=?, modelo=?, quantidade=?, data_aquisicao=?, valor_total=?, especificacoes_tecnicas=?, local=? 
                 WHERE id=?";
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bind_param("sssisdssi", $descricao, $marca, $modelo, $quantidade, $data_aquisicao, $valor_total, $especificacoes, $local, $id);
         $stmt->execute();
     } else {
-        // Insere
         $sql = "INSERT INTO bps (descricao, marca, modelo, quantidade, data_aquisicao, valor_total, especificacoes_tecnicas, local, setor_id) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
