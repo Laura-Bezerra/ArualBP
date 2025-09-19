@@ -1,90 +1,100 @@
  body {
-            background: #441281; /* Fundo claro */
-            color: #6e04b5; /* Cor principal */
-        }
-        /* Menu fixo no topo */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #441281; /* Cor roxa escura */
-            z-index: 1000;
-            border-radius: 0 0 15px 15px; /* Borda arredondada no fundo */
-            border-bottom: none; /* Remover borda inferior */
-        }
-        .navbar .navbar-brand {
-            color: #f5ad00; /* Cor amarela */
-        }
-        .navbar .navbar-nav .nav-link {
-            color: #f5ad00;
-            transition: background-color 0.3s ease;
-            border-radius: 5px; /* Borda arredondada nos links do menu */
-            padding: 10px 30px; /* Espaçamento dentro dos links */
-        }
-        .navbar .navbar-nav .nav-link:hover {
-            background-color: #f5ad00;
-            color: white; /* Manter o texto branco ao passar o mouse */
-        }
-        .btn-danger {
-            background-color: #e74c3c; /* Botão sair vermelho */
-            border-radius: 5px; /* Borda arredondada */
-            padding: 10px 30px;
-        }
-        /* Caixa de pesquisa */
-        .box-search {
-            display: flex;
-            justify-content: center;
-            gap: .1%;
-            margin-top: 80px; /* Deixa espaço para o menu fixo */
-        }
-        .form-control::placeholder {
-            color: #441281; /* Cor mais clara para o texto do placeholder */
-        }
-        /* Centralizando e distribuindo os botões */
-        .button-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px; /* Espaçamento entre os botões */
-            margin-top: 100px; /* Espaço superior para não sobrepor o menu fixo */
-        }
-        .btn-custom {
-            background-color: #915ad3; /* Cor roxa para o botão */
-            color: white;
-            border-radius: 5px;
-            padding: 20px 40px;
-            text-align: center;
-            font-size: 16px;
-            width: 200px;
-        }
-        .btn-custom:hover {
-            background-color: #6203a6;
-                        color: white;
+     background: #441281;
+     color: #6e04b5;
+ }
 
-        }
-        /* Estilos para a tabela */
-        table {
-            margin-top: 20px;
-            width: 100%;
-            margin-left: 50;
-            margin-right: 60;
-            border: 20px solid #441281;
-            border-radius: 100px;
-        }
-        .table th {
-            background-color: #441281;
-            color: white;
-        }
-        .table td, .table th {
-            border: 1px solid #6203a6;
-        }
-        .table tbody tr:nth-child(even) {
-            background-color: #d9d9d9;
-        }
+ .navbar {
+     position: fixed;
+     top: 0;
+     left: 0;
+     right: 0;
+     background: #441281;
+     z-index: 1000;
+     border-radius: 0 0 15px 15px;
+     border-bottom: none;
+ }
 
-        /* Adicionando margem superior para o título */
-        .welcome-title {
-            margin-top: 120px; /* Garantir que o título fique abaixo da navbar */
-            text-align: center;
-            color: white
-        }
+ .navbar .navbar-brand {
+     color: #f5ad00;
+ }
+
+ .navbar .navbar-nav .nav-link {
+     color: #f5ad00;
+     transition: background-color 0.3s ease;
+     border-radius: 5px;
+     padding: 10px 30px;
+ }
+
+ .navbar .navbar-nav .nav-link:hover {
+     background-color: #f5ad00;
+     color: white;
+ }
+
+ .btn-danger {
+     background-color: #e74c3c;
+     border-radius: 5px;
+     padding: 10px 30px;
+ }
+
+ .box-search {
+     display: flex;
+     justify-content: center;
+     gap: .1%;
+     margin-top: 80px;
+ }
+
+ .form-control::placeholder {
+     color: #441281;
+ }
+
+ .button-container {
+     display: flex;
+     justify-content: center;
+     gap: 20px;
+     margin-top: 100px;
+ }
+
+ .btn-custom {
+     background-color: #915ad3;
+     color: white;
+     border-radius: 5px;
+     padding: 20px 40px;
+     text-align: center;
+     font-size: 16px;
+     width: 200px;
+ }
+
+ .btn-custom:hover {
+     background-color: #6203a6;
+     color: white;
+
+ }
+
+ table {
+     margin-top: 20px;
+     width: 100%;
+     margin-left: 50;
+     margin-right: 60;
+     border: 20px solid #441281;
+     border-radius: 100px;
+ }
+
+ .table th {
+     background-color: #441281;
+     color: white;
+ }
+
+ .table td,
+ .table th {
+     border: 1px solid #6203a6;
+ }
+
+ .table tbody tr:nth-child(even) {
+     background-color: #d9d9d9;
+ }
+
+ .welcome-title {
+     margin-top: 120px;
+     text-align: center;
+     color: white
+ }

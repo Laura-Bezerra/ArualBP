@@ -26,9 +26,10 @@ $result = $conexao->query($sql);
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../css/home-admin.css">
+    <?php include '../includes/navbar.php'; ?>
+
 </head>
 <body>
-    <?php include '../includes/navbar.php'; ?>
 
     <h1 class="welcome-title">Bem-vindo <u><?php echo $logado; ?></u></h1>
     <br>
@@ -36,7 +37,7 @@ $result = $conexao->query($sql);
         <a href="cadastro_bp.php" class="btn btn-custom">Cadastro BP</a>
         <a href="cadastro_usuario.php" class="btn btn-custom">Cadastro Usuário</a>
         <a href="cadastro_setor.php" class="btn btn-custom">Cadastro Setor</a>
-        <a href="solicitacoes_alteracoes.php" class="btn btn-custom">Solicitação de Alteração</a>
+        <a href="gerenciar_solicitacoes.php" class="btn btn-custom">Gerenciar Solicitações</a>
         <a href="relatorios.php" class="btn btn-custom">Relatórios</a>
     </div>
 

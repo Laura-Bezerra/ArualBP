@@ -1,0 +1,34 @@
+body {
+    background-color: #d9d9d9;
+    color: #441281;
+    font-family: Arial, sans-serif;
+}
+
+.solicitacoes-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.solicitacoes-table th, .solicitacoes-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.solicitacoes-table th {
+    background-color: #915ad3;
+    color: #fff;
+}
+
+.solicitacoes-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+.no-results, .error {
+    text-align: center;
+    color: red;
+    font-size: 18px;
+}
