@@ -14,18 +14,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $setor_id = $_POST['setor_id'];
 
     if ($id) {
+        // Atualiza BP existente
         $sql = "UPDATE bps 
                 SET descricao=?, marca=?, modelo=?, quantidade=?, data_aquisicao=?, valor_total=?, especificacoes_tecnicas=?, local=? 
                 WHERE id=?";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("sssisdssi", $descricao, $marca, $modelo, $quantidade, $data_aquisicao, $valor_total, $especificacoes, $local, $id);
         $stmt->execute();
+
     } else {
+        // Insere novo BP
         $sql = "INSERT INTO bps (descricao, marca, modelo, quantidade, data_aquisicao, valor_total, especificacoes_tecnicas, local, setor_id) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conexao->prepare($sql);
         $stmt->bind_param("sssisdssi", $descricao, $marca, $modelo, $quantidade, $data_aquisicao, $valor_total, $especificacoes, $local, $setor_id);
-        $stmt->execute();
+
+        if ($stmt->execute()) {
+            $bp_id = $conexao->insert_id;
+
+            $sqlSetor = "SELECT nome FROM setores WHERE id = $setor_id LIMIT 1";
+            $resultSetor = $conexao->query($sqlSetor);
+            $rowSetor = $resultSetor->fetch_assoc();
+            $nomeSetor = strtoupper($rowSetor['nome']);
+            $prefixoSetor = substr($nomeSetor, 0, 3);
+
+            $numero = str_pad($bp_id, 3, '0', STR_PAD_LEFT);
+            $codigo_base = "BP-" . $prefixoSetor . "-" . $numero;
+
+            $conexao->query("UPDATE bps SET codigo_bp = '$codigo_base' WHERE id = $bp_id");
+            $quantidade_int = intval($quantidade);
+
+            for ($i = 1; $i <= $quantidade_int; $i++) {
+                $sufixo = $quantidade_int > 1 ? '-' . $i : '';
+                $codigo_etiqueta = $codigo_base . $sufixo;
+                $conexao->query("INSERT INTO etiquetas_bp (bp_id, codigo_etiqueta) VALUES ($bp_id, '$codigo_etiqueta')");
+            }
+        }
+
     }
 
     header("Location: ../pages/cadastro_bp.php?setor_id=$setor_id");
@@ -42,3 +67,4 @@ if (isset($_GET['delete_id'])) {
     header("Location: ../pages/cadastro_bp.php?setor_id=$setor_id");
     exit();
 }
+?>

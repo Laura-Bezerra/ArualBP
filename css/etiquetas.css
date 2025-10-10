@@ -1,0 +1,30 @@
+.etiqueta-card {
+  border: 2px solid #441281;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 8px;
+  text-align: center;
+  color: #441281;
+  background-color: #fff;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.etiqueta-card small {
+  display: block;
+  font-size: 12px;
+  color: #6c757d;
+}
+.etiqueta-print {
+  display: inline-block;
+  margin-top: 8px;
+  background-color: #f5ad00;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 13px;
+  cursor: pointer;
+}
+.etiqueta-print:hover {
+  background-color: #e59c00;
+}

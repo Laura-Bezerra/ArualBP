@@ -49,8 +49,16 @@ $resultBens = $conexao->query($sqlBens);
         <table class="table table-bordered">
             <thead>
                 <tr>
-                    <th>ID</th><th>Descrição</th><th>Marca</th><th>Modelo</th><th>Quantidade</th>
-                    <th>Data</th><th>Valor</th><th>Local</th><th>Ações</th>
+                    <th>ID</th>
+                    <th>Descrição</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Quantidade</th>
+                    <th>Data</th>
+                    <th>Valor</th>
+                    <th>Local</th>
+                    <th>Etiqueta</th>
+                    <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -63,7 +71,17 @@ $resultBens = $conexao->query($sqlBens);
                     <td><?= $bp['quantidade'] ?></td>
                     <td><?= $bp['data_aquisicao'] ?></td>
                     <td><?= $bp['valor_total'] ?></td>
-                    <td><?= $bp['local'] ?></td>
+                    <td><?= $bp['local'] ?></td>                    
+                    <td>
+                        <button type="button"
+                                class="btn btn-link text-decoration-none btn-etiqueta"
+                                data-toggle="modal"
+                                data-target="#etiquetaModal"
+                                data-bp-id="<?= $bp['id'] ?>">
+                        <?= $bp['codigo_bp'] ?>
+                        </button>
+         
+                    </td>
                     <td>
                         <button class="btn btn-success btn-sm editBtn" 
                                 data-toggle="modal" data-target="#editModal"
@@ -73,6 +91,7 @@ $resultBens = $conexao->query($sqlBens);
                                 data-modelo="<?= $bp['modelo'] ?>"
                                 data-quantidade="<?= $bp['quantidade'] ?>"
                                 data-data_aquisicao="<?= $bp['data_aquisicao'] ?>"
+                                data-valor_total="<?= $bp['valor_total'] ?>"
                                 data-valor_total="<?= $bp['valor_total'] ?>"
                                 data-local="<?= $bp['local'] ?>">
                             Editar
@@ -86,7 +105,9 @@ $resultBens = $conexao->query($sqlBens);
         </table>
     </div>
 
+    <?php include '../includes/modal_etiqueta.php'; ?>
     <?php include '../includes/modal_bp.php'; ?>
     <script src="../js/cadastro_bp.js"></script>
+    <script src="../js/etiquetas.js"></script>
 </body>
 </html>
