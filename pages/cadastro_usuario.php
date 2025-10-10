@@ -9,6 +9,7 @@ include '../includes/navbar.php';
 <html lang="pt-br">
 <head>
     <link rel="stylesheet" href="../css/cadastro_user.css">
+    <link rel="stylesheet" href="../css/modal_user.css">
 </head>
 <body>
 <div class="formulario-usuario">
@@ -19,20 +20,30 @@ include '../includes/navbar.php';
                 <div class="inputBox">
                     <input type="text" name="nome" id="nome" class="inputUser" required>
                     <label for="nome">Nome completo</label>
-                </div>
+                </div>                
                 <div class="inputBox">
+                    <input type="email" name="email" id="email" class="inputUser" required>
+                    <label for="email">E-mail*</label>
+                </div>
+                <div class="linha-dupla">
+
+                <div class="inputBox metade">
                     <input type="text" name="usuario" id="usuario" class="inputUser" required>
-                    <label for="usuario">Nome de Usuário</label>
+                    <label for="usuario">Usuário*</label>
                 </div>
-                <div class="inputBox">
+
+                <div class="inputBox metade">
                     <input type="password" name="senha" id="senha" class="inputUser" required>
                     <label for="senha">Senha</label>
                 </div>
+                </div>
+
                 <div class="inputBox">                    
                     <label for="nivel_acesso">Nível de Acesso</label>                        
                     <br>
                     <select name="nivel_acesso" id="nivel_acesso">
                         <option value="usuario">Usuário Comum</option>
+                        <option value="gerente">Gerente</option>
                         <option value="admin">Administrador</option>
                     </select>
                 </div>
@@ -68,6 +79,7 @@ include '../includes/navbar.php';
                                     data-id='".$user_data['id']."'
                                     data-nome='".$user_data['nome']."'
                                     data-usuario='".$user_data['usuario']."'
+                                    data-email='".$user_data['email']."'
                                     data-nivel='".$user_data['nivel_acesso']."'>
                                 Editar
                             </button>
