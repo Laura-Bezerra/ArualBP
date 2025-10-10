@@ -1,235 +1,106 @@
-:root {
-  --primary-color: #441281;
-  --secondary-color: #915ad3;
-  --highlight-color: #f5ad00;
-  --danger-color: #e74c3c;
-  --bg-color: #f3f1fa;
-  --white: #ffffff;
-  --text-color: #441281;
-}
+   :root {
+       --primary-color: #441281;
+       --secondary-color: #915ad3;
+       --highlight-color: #f5ad00;
+       --bg-color: #441281;
+   }
 
-/* ======== GERAL ======== */
-body {
-  background: var(--bg-color);
-  font-family: 'Poppins', 'Roboto', sans-serif;
-  color: var(--text-color);
-  margin: 0;
-  padding: 0;
-}
+   body {
+       background-color: var(--bg-color);
+       font-family: 'Arial', sans-serif;
+   }
 
-/* ======== CONTAINER ======== */
-.container {
-  background-color: var(--white);
-  padding: 40px 50px;
-  margin: 80px auto;
-  border-radius: 18px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
-  max-width: 1100px;
-  transition: box-shadow 0.3s ease;
-}
+   .container {
+       background-color: #fff;
+       padding: 30px;
+       margin-top: 100px;
+       border-radius: 8px;
+       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+   }
 
-.container:hover {
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.15);
-}
+   h2 {
+       color: var(--primary-color);
+       font-size: 24px;
+       font-weight: bold;
+   }
 
-h2 {
-  color: var(--primary-color);
-  font-size: 26px;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: 25px;
-  position: relative;
-}
+   .btn-primary,
+   .btn-success,
+   .btn-danger {
+       border-radius: 20px;
+   }
 
-h2::after {
-  content: "";
-  display: block;
-  width: 60px;
-  height: 4px;
-  background: var(--highlight-color);
-  border-radius: 2px;
-  margin: 10px auto 0;
-}
+   .btn-primary {
+       background-color: var(--primary-color);
+       border: none;
+   }
 
-/* ======== FORM ======== */
-form {
-  display: flex;
-  align-items: flex-end;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-bottom: 25px;
-}
+   .btn-primary:hover {
+       background-color: var(--secondary-color);
+   }
 
-form label {
-  font-weight: 600;
-  color: var(--primary-color);
-  margin-right: 5px;
-}
+   .btn-success {
+       background-color: var(--highlight-color);
+       border: none;
+   }
 
-form select,
-form input {
-  border: 1.5px solid #d2cce8;
-  border-radius: 10px;
-  padding: 8px 12px;
-  font-size: 15px;
-  color: var(--text-color);
-  background-color: #fafafa;
-  transition: all 0.3s ease;
-}
+   .btn-success:hover {
+       background-color: #f39c12;
+   }
 
-form select:focus,
-form input:focus {
-  outline: none;
-  border-color: var(--highlight-color);
-  box-shadow: 0 0 6px rgba(245, 173, 0, 0.4);
-}
+   .btn-danger {
+       background-color: #e74c3c;
+       border: none;
+   }
 
-.btn {
-  border: none;
-  border-radius: 25px;
-  padding: 8px 20px;
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  transition: 0.3s;
-}
+   .btn-danger:hover {
+       background-color: #c0392b;
+   }
 
-/* ======== BOTÕES ======== */
-.btn-primary {
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  color: white;
-}
+   .table {
+       margin-top: 20px;
+       border-radius: 8px;
+       overflow: hidden;
+   }
 
-.btn-primary:hover {
-  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-  transform: translateY(-1px);
-}
+   .table thead {
+       background-color: var(--primary-color);
+       color: white;
+   }
 
-.btn-success {
-  background-color: var(--highlight-color);
-  color: white;
-}
+   .table tbody tr {
+       background-color: #fff;
+       transition: background-color 0.3s;
+   }
 
-.btn-success:hover {
-  background-color: #e59c00;
-  transform: translateY(-1px);
-}
+   .table tbody tr:hover {
+       background-color: #f2f2f2;
+   }
 
-.btn-danger {
-  background-color: var(--danger-color);
-  color: white;
-}
+   .form-group label {
+       font-weight: bold;
+       color: var(--primary-color);
+   }
 
-.btn-danger:hover {
-  background-color: #c0392b;
-  transform: translateY(-1px);
-}
+   .form-control {
+       border-radius: 20px;
+   }
 
-/* ======== TABELA ======== */
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-}
+   /* Modais */
+   .modal-content {
+       border-radius: 8px;
+   }
 
-.table thead {
-  background: var(--primary-color);
-  color: white;
-}
+   .modal-header {
+       background-color: var(--primary-color);
+       color: white;
+   }
 
-.table thead th {
-  padding: 12px;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-size: 13px;
-  letter-spacing: 0.5px;
-}
+   .modal-footer button {
+       border-radius: 20px;
+   }
 
-.table tbody tr {
-  background: #fff;
-  transition: all 0.2s ease;
-}
-
-.table tbody tr:hover {
-  background-color: #f8f5ff;
-}
-
-.table tbody td {
-  padding: 12px;
-  color: var(--text-color);
-  font-size: 14px;
-  border-bottom: 1px solid #eee;
-}
-
-.table tbody td:last-child {
-  text-align: center;
-}
-
-/* ======== MODAL ======== */
-.modal-content {
-  border-radius: 15px;
-  border: none;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-  overflow: hidden;
-}
-
-.modal-header {
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  color: white;
-  border-bottom: none;
-}
-
-.modal-title {
-  font-weight: 600;
-  letter-spacing: 0.3px;
-}
-
-.modal-body label {
-  font-weight: 600;
-  color: var(--primary-color);
-}
-
-.modal-footer {
-  border-top: none;
-  background-color: #faf9fc;
-}
-
-.modal-footer button {
-  border-radius: 25px;
-  padding: 8px 20px;
-}
-
-/* ======== INPUTS DO MODAL ======== */
-.modal-body input,
-.modal-body select {
-  border: 1.5px solid #d2cce8;
-  border-radius: 10px;
-  padding: 8px 12px;
-  background-color: #fafafa;
-  color: var(--text-color);
-  transition: border 0.3s;
-}
-
-.modal-body input:focus,
-.modal-body select:focus {
-  border-color: var(--highlight-color);
-  box-shadow: 0 0 6px rgba(245, 173, 0, 0.3);
-}
-
-/* ======== RESPONSIVO ======== */
-@media (max-width: 768px) {
-  .container {
-    padding: 25px 20px;
-  }
-
-  form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .table {
-    font-size: 13px;
-  }
-}
+   .close {
+       color: #fff;
+       font-size: 30px;
+   }
