@@ -4,90 +4,133 @@ include_once('../includes/config.php');
 include '../includes/header.php';
 include '../includes/navbar.php';
 
+// Busca setores
 $sqlSetores = "SELECT * FROM setores ORDER BY id DESC";
 $resultSetores = $conexao->query($sqlSetores);
-
-$sqlUsuarios = "SELECT * FROM usuarios ORDER BY nome ASC"; 
-$resultUsuarios = $conexao->query($sqlUsuarios);
-
 ?>
 
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="../css/cadastro_user.css">
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="../css/cadastro_setor.css">
+  <link rel="stylesheet" href="../css/modal_setor.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
-<div class="formulario-usuario">
-    <div class="container">
-        <form action="../actions/cadastro_setor_actions.php" method="POST">
-            <fieldset>
-                <legend><b>Cadastro de Setores</b></legend>
-                <div class="inputBox">
-                    <input type="text" name="nome" id="nome" class="inputUser" required>
-                    <label for="nome">Nome do Setor</label>
-                </div>
-                <select name="usuario_id" id="usuario_id" required>
-                    <option value="">Selecione um usuário</option>
-                    <?php while ($usuario = $resultUsuarios->fetch_assoc()): ?>
-                        <option value="<?php echo $usuario['id']; ?>"><?php echo $usuario['nome']; ?></option>
-                    <?php endwhile; ?>
-                </select><br>
-                <input type="submit" name="submit" id="submit" value="Cadastrar">
 
-            </fieldset>
-        </form>
+<div class="page-container">
+  <h2>Cadastro de Setores</h2>
 
-        <!-- Tabela de Setores -->
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Setor</th>
-                        <th>Responsável</th>
-                        <th>Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php while ($setor = mysqli_fetch_assoc($resultSetores)): ?>
-                        <?php
-                        $usuarioId = $setor['usuario_id'];
-                        $sqlUsuarioResponsavel = "SELECT nome FROM usuarios WHERE id = '$usuarioId'";
-                        $resultUsuarioResponsavel = mysqli_query($conexao, $sqlUsuarioResponsavel);
-                        $usuarioResponsavel = mysqli_fetch_assoc($resultUsuarioResponsavel);
-                        ?>
-                        <tr>
-                            <td><?= $setor['id'] ?></td>
-                            <td><?= $setor['nome'] ?></td>
-                            <td><?= $usuarioResponsavel['nome'] ?? 'N/A' ?></td>
-                            <td>
-                                <button class="btn-editar btn-success btn-sm editSetorBtn"                                
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#editSetorModal"
-                                        data-id="<?= $setor['id'] ?>"
-                                        data-nome="<?= $setor['nome'] ?>"
-                                        data-usuario="<?= $setor['usuario_id'] ?>">
-                                    Editar
-                                </button>
-
-                                
-                                <a href="../actions/delete_setor.php?id=<?= $setor['id'] ?>" 
-                                   class="btn btn-danger btn-sm"
-                                   onclick="return confirm('Tem certeza que deseja excluir este setor?')">
-                                   Deletar
-                                </a>
-                            </td>
-                        </tr>
-                    <?php endwhile; ?>
-                </tbody>
-            </table>
-        </div>
+  <!-- Formulário de cadastro -->
+  <form action="../actions/cadastro_setor_actions.php" method="POST" class="form-cadastro">
+    <div class="input-group">
+      <input type="text" name="nome" id="nome" placeholder="Nome do Setor" required>
+      <button type="submit" name="submit" class="btn-add">
+        <i class="fa-solid fa-plus"></i> Adicionar
+      </button>
     </div>
+  </form>
 
-     <?php include '../includes/modal_setor.php'; ?>
-    <script src="../js/cadastro_setor.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Lista de setores -->
+  <div class="setores-container">
+    <?php while ($setor = $resultSetores->fetch_assoc()): ?>
+      <?php
+        // Busca gerente
+        $gerenteNome = 'Sem gerente definido';
+        if (!empty($setor['gerente_id'])) {
+          $res = $conexao->query("SELECT nome FROM usuarios WHERE id = " . intval($setor['gerente_id']));
+          if ($g = $res->fetch_assoc()) $gerenteNome = $g['nome'];
+        }
+
+        // Busca usuários vinculados
+        $usuarios = $conexao->query("
+          SELECT u.nome 
+          FROM setor_usuarios su
+          JOIN usuarios u ON su.usuario_id = u.id
+          WHERE su.setor_id = {$setor['id']}
+        ");
+      ?>
+      <div class="setor-card">
+        <div class="card-header">
+          <h3><?= htmlspecialchars($setor['nome']) ?></h3>
+        </div>
+        <div class="card-body">
+            <p>
+                <strong>Gerente:</strong> <?= htmlspecialchars($gerenteNome) ?>
+                <?php if (!empty($setor['gerente_id'])): ?>
+                    <a href="../actions/remover_gerente.php?setor_id=<?= $setor['id'] ?>"
+                    class="remove-gerente"
+                    title="Remover gerente"
+                    onclick="return confirm('Remover o gerente <?= htmlspecialchars($gerenteNome) ?> deste setor?')">
+                    <i class="fa-solid fa-user-xmark"></i>
+                    </a>
+                <?php endif; ?>
+            </p>
+
+          <p><strong>Usuários:</strong></p>
+          <?php if ($usuarios->num_rows > 0): ?>
+            <ul class="user-list">
+              <?php while ($u = $usuarios->fetch_assoc()): ?>
+                    <li class="user-item">
+                        <?= htmlspecialchars($u['nome']) ?>
+                        <a href="../actions/remover_usuario_setor.php?setor_id=<?= $setor['id'] ?>&usuario=<?= urlencode($u['nome']) ?>" 
+                        class="remove-user" 
+                        title="Remover usuário deste setor"
+                        onclick="return confirm('Remover <?= htmlspecialchars($u['nome']) ?> deste setor?')">
+                        <i class="fa-solid fa-trash"></i>
+                        </a>
+                    </li>
+                <?php endwhile; ?>
+            </ul>
+          <?php else: ?>
+            <p class="text-muted">Nenhum usuário vinculado.</p>
+          <?php endif; ?>
+        </div>
+        <div class="card-actions">
+          <!-- Editar nome do setor -->
+          <button class="btn-icon editSetorBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#editSetorModal"
+                  data-id="<?= $setor['id'] ?>"
+                  data-nome="<?= htmlspecialchars($setor['nome']) ?>">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+
+          <!-- Vincular gerente -->
+          <button class="btn-icon linkGerenteBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#vincularGerenteModal"
+                  data-id="<?= $setor['id'] ?>">
+            <i class="fa-solid fa-user-tie"></i>
+          </button>
+
+          <!-- Vincular usuários -->
+          <button class="btn-icon linkUserBtn"
+                  data-bs-toggle="modal"
+                  data-bs-target="#vincularUsuarioModal"
+                  data-id="<?= $setor['id'] ?>">
+            <i class="fa-solid fa-users"></i>
+          </button>
+
+          <!-- Deletar -->
+          <a href="../actions/delete_setor.php?id=<?= $setor['id'] ?>" 
+             class="btn-icon deleteBtn"
+             onclick="return confirm('Tem certeza que deseja excluir este setor?')">
+            <i class="fa-solid fa-trash"></i>
+          </a>
+        </div>
+      </div>
+    <?php endwhile; ?>
+  </div>
 </div>
+
+<?php include '../includes/modal_setor.php'; ?>
+<?php include '../includes/modal_vincular_gerente.php'; ?>
+<?php include '../includes/modal_vincular_usuario.php'; ?>
+
+<script src="../js/cadastro_setor.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

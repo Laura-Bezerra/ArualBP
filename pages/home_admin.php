@@ -3,12 +3,12 @@ session_start();
 include_once('../includes/config.php');
 include '../includes/header.php'; 
 
-if ((!isset($_SESSION['usuario']) || !isset($_SESSION['senha'])) || ($_SESSION['nivel_acesso'] !== 'admin')) {
-    unset($_SESSION['usuario']);
-    unset($_SESSION['senha']);
+if (!isset($_SESSION['usuario']) || $_SESSION['nivel_acesso'] !== 'admin') {
+    session_unset(); // limpa tudo
     header('Location: login.php');
-    exit(); 
+    exit();
 }
+
 
 $logado = $_SESSION['usuario'];
 

@@ -1,0 +1,131 @@
+/* ===== Modal Setor (Adicionar / Editar) ===== */
+
+.modal-content {
+  border-radius: 16px;
+  border: none;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  animation: modalFade 0.25s ease-in-out;
+}
+
+@keyframes modalFade {
+  from { transform: translateY(-10px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ===== Cabeçalho ===== */
+.modal-header {
+  background: linear-gradient(90deg, #441281, #915ad3);
+  color: #fff;
+  border-bottom: none;
+  padding: 14px 20px;
+}
+
+.modal-header .modal-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.3px;
+}
+
+.btn-close {
+  background-color: #fff;
+  opacity: 0.8;
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+}
+
+.btn-close:hover {
+  opacity: 1;
+}
+
+/* ===== Corpo ===== */
+.modal-body {
+  padding: 24px 26px 16px 26px;
+  background: #fff;
+}
+
+.modal-body label {
+  font-weight: 600;
+  color: #441281;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.modal-body input,
+.modal-body select {
+  width: 100%;
+  border: 1.8px solid #915ad3;
+  border-radius: 10px;
+  padding: 10px 12px;
+  font-size: 0.95rem;
+  color: #441281;
+  background-color: #faf8ff;
+  transition: all 0.3s;
+}
+
+.modal-body input:focus,
+.modal-body select:focus {
+  border-color: #f5ad00;
+  box-shadow: 0 0 6px rgba(245, 173, 0, 0.4);
+  background-color: #fff;
+  outline: none;
+}
+
+/* ===== Rodapé ===== */
+.modal-footer {
+  border-top: none;
+  padding: 18px 22px;
+  background: #faf9fc;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-footer .btn {
+  border-radius: 30px;
+  font-weight: 600;
+  padding: 8px 20px;
+  transition: 0.25s ease-in-out;
+}
+
+/* Botão primário */
+.modal-footer .btn-primary {
+  background: linear-gradient(90deg, #441281, #915ad3);
+  border: none;
+}
+
+.modal-footer .btn-primary:hover {
+  background: linear-gradient(90deg, #915ad3, #441281);
+  transform: scale(1.05);
+}
+
+/* Botão de sucesso */
+.modal-footer .btn-success {
+  background-color: #f5ad00;
+  border: none;
+  color: #fff;
+}
+
+.modal-footer .btn-success:hover {
+  background-color: #e59c00;
+  transform: scale(1.05);
+}
+
+/* Botão secundário */
+.modal-footer .btn-secondary {
+  background-color: #d9d9d9;
+  color: #333;
+  border: none;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #c4c4c4;
+}
+
+/* ===== Texto informativo ===== */
+.modal-body .text-muted {
+  font-size: 0.85rem;
+  color: #777;
+  margin-top: 6px;
+}
