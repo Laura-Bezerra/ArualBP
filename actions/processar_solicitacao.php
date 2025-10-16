@@ -2,29 +2,33 @@
 session_start();
 include_once('../includes/config.php');
 
-if (isset($_POST['submit']) && isset($_SESSION['usuario'])) {
-    $logado = $_SESSION['usuario'];
-    $sqlUsuario = "SELECT id FROM usuarios WHERE usuario = '$logado'";
-    $resultUsuario = $conexao->query($sqlUsuario);
-    $usuario_id = $resultUsuario->fetch_assoc()['id'];
+if (isset($_POST['submit'])) {
+    $bp_id = intval($_POST['bp_id']);
+    $descricao = trim($_POST['descricao']);
+    $usuario_id = $_SESSION['id'];
 
-    if ($usuario_id) {
-        $bp_id = $_POST['bp_id'];
-        $descricao = $_POST['descricao'];
+    // 🔹 Busca o setor do BP selecionado
+    $sqlSetor = "SELECT setor_id FROM bps WHERE id = ?";
+    $stmt = $conexao->prepare($sqlSetor);
+    $stmt->bind_param("i", $bp_id);
+    $stmt->execute();
+    $resultSetor = $stmt->get_result()->fetch_assoc();
+    $setor_id = $resultSetor['setor_id'];
 
-        $sql = "INSERT INTO solicitacoes (usuario_id, bp_id, setor_id, descricao, data_solicitacao, status)
-                VALUES ('$usuario_id', '$bp_id', (SELECT setor_id FROM bps WHERE id = '$bp_id'), '$descricao', NOW(), 'Pendente')";
+    // 🔹 Salva a solicitação
+    $sqlInsert = "INSERT INTO solicitacoes (bp_id, setor_id, usuario_id, descricao, status, data_solicitacao)
+                  VALUES (?, ?, ?, ?, 'pendente', NOW())";
+    $stmt = $conexao->prepare($sqlInsert);
+    $stmt->bind_param("iiis", $bp_id, $setor_id, $usuario_id, $descricao);
 
-        if ($conexao->query($sql) === TRUE) {
-            header('Location: ../pages/home_usuario.php');
-            exit();
-        } else {
-            echo "Erro ao processar a solicitação: " . $conexao->error;
-        }
+    if ($stmt->execute()) {
+        header("Location: ../pages/solicitacoes.php?success=1");
+        exit;
     } else {
-        echo "Erro ao identificar o usuário.";
+        echo "Erro ao enviar solicitação: " . $conexao->error;
     }
 } else {
-    echo "Usuário não logado ou formulário inválido.";
+    header("Location: ../pages/home_usuario.php");
+    exit;
 }
 ?>

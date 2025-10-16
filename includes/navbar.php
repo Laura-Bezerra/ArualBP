@@ -23,6 +23,20 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../pages/relatorios.php">Relatórios</a>
                     </li>
+                
+                <?php elseif ($_SESSION['nivel_acesso'] === 'gerente'): ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/home_gerente.php">Início</a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/cadastro_bp.php">Cadastro BP</a>
+                    </li>                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/gerenciar_solicitacoes.php">Gerenciar Solicitações</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/relatorios.php">Relatórios</a>
+                    </li>
 
                 <?php elseif ($_SESSION['nivel_acesso'] === 'usuario'): ?>
                     <li class="nav-item">

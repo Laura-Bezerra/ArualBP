@@ -1,90 +1,234 @@
+:root {
+  --primary-color: #441281;
+  --secondary-color: #915ad3;
+  --accent-color: #f5ad00;
+  --bg-color: #f4f2f8;
+  --text-color: #441281;
+  --white: #ffffff;
+}
+
+/* ===== Base ===== */
 body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #d9d9d9;
-    color: #441281;
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding-bottom: 60px;
 }
 
+/* ===== Container principal ===== */
 .conteudo {
-    font-family: 'Roboto', sans-serif;
-    background-color: #d9d9d9;
-    color: #441281;
-    margin: 0;
-    padding-top: 50px;
+  max-width: 1400px;
+  margin: 70px auto;
+  padding: 20px 30px;
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
 }
 
+/* ===== Título ===== */
 h1 {
-    color: #441281;
-    text-align: center;
-    margin-bottom: 20px;
+  color: var(--primary-color);
+  text-align: center;
+  font-weight: 700;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Tabela */
+/* ===== Tabela ===== */
 table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--white);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+thead {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
 }
 
 th,
 td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #eee;
 }
 
 th {
-    background-color: #915ad3;
-    color: white;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
 }
 
-tr:hover {
-    background-color: #f1f1f1;
+td:hover {
+  background-color: #f8f5ff;
 }
 
-/* Botões */
-button {
-    padding: 8px 16px;
-    background-color: #f5ad00;
-    border: none;
-    color: white;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-    margin-right: 10px;
-}
-
-button:hover {
-    background-color: #e59c00;
-}
-
-/* Estilo para a linha de ações */
+/* ===== Coluna de ações ===== */
 .acoes {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
 }
 
-.acoes span {
-    color: gray;
+.acoes form {
+  display: flex;
+  gap: 10px;
 }
 
-/* Botão voltar */
+.acoes button {
+  background-color: var(--accent-color);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 25px;
+  padding: 6px 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.acoes button:hover {
+  background-color: #e59c00;
+  transform: scale(1.05);
+}
+
+/* ===== Botão de recusar ===== */
+.acoes button[name="acao"][value="recusar"] {
+  background-color: #e74c3c;
+}
+
+.acoes button[name="acao"][value="recusar"]:hover {
+  background-color: #c0392b;
+}
+
+/* ===== Status visual ===== */
+td:nth-child(5) {
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+td:nth-child(5)::before {
+  content: "● ";
+  font-size: 1rem;
+  vertical-align: middle;
+}
+
+td:nth-child(5):contains("pendente") {
+  color: var(--accent-color);
+}
+
+td:nth-child(5):contains("aprovado") {
+  color: #27ae60;
+}
+
+td:nth-child(5):contains("recusado") {
+  color: #c0392b;
+}
+
+/* ===== Botão Voltar ===== */
 .voltar-btn {
-    display: block;
-    width: 200px;
-    margin: 30px auto;
-    padding: 10px;
-    text-align: center;
-    background-color: #f5ad00;
-    color: white;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    text-decoration: none;
+  display: block;
+  width: 220px;
+  margin: 40px auto 0;
+  text-align: center;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  font-weight: 600;
+  border-radius: 30px;
+  padding: 12px 20px;
+  text-decoration: none;
+  transition: all 0.3s ease;
 }
 
 .voltar-btn:hover {
-    background-color: #e59c00;
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  transform: scale(1.05);
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 992px) {
+  .conteudo {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  .acoes {
+    flex-direction: column;
+  }
+
+  .acoes button {
+    width: 100%;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
+}
+
+/* ===== FILTROS ===== */
+.form-filtros {
+  margin-bottom: 30px;
+  background-color: var(--white);
+  padding: 15px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.filtros-container {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filtro {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+}
+
+.filtro label {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.form-select {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 2px solid var(--secondary-color);
+  background-color: #faf8ff;
+  transition: 0.3s;
+}
+
+.form-select:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 5px rgba(245,173,0,0.5);
+}
+
+.btn-filtrar {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-filtrar:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
 }
