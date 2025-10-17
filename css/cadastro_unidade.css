@@ -1,0 +1,271 @@
+:root {
+  --primary-color: #441281;
+  --secondary-color: #915ad3;
+  --accent-color: #f5ad00;
+  --bg-color: #f4f2f8;
+  --text-color: #441281;
+  --white: #fff;
+}
+
+/* ===== BASE ===== */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+}
+
+/* ===== CONTAINER PRINCIPAL ===== */
+.page-container {
+  max-width: 1100px;
+  margin: 80px auto;
+  padding: 20px;
+}
+
+/* ===== FORM SECTION ===== */
+.form-section {
+  background: var(--white);
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  padding: 30px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.form-section::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 6px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+}
+
+.form-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.form-header .icon {
+  font-size: 2.3rem;
+  color: var(--primary-color);
+}
+
+.form-header h2 {
+  font-size: 1.8rem;
+  margin: 10px 0 5px;
+  color: var(--primary-color);
+}
+
+.form-header p {
+  font-size: 0.95rem;
+  color: #6d6a7a;
+}
+
+/* ===== FORMULÁRIO ===== */
+.modern-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBox label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--primary-color);
+}
+
+.inputBox input,
+.inputBox textarea {
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  padding: 10px;
+  background-color: #faf8ff;
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: 0.3s;
+}
+
+.inputBox input:focus,
+.inputBox textarea:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 6px rgba(245, 173, 0, 0.4);
+}
+
+.inputBox.nome {
+  flex: 3; /* 75% */
+}
+
+.inputBox.sigla {
+  flex: 1; /* 25% */
+}
+
+.inputBox.descricao {
+  width: 100%;
+}
+
+.btn-add {
+  align-self: center;
+  margin-top: 15px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 30px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-add:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+}
+
+/* ===== CARDS ===== */
+.unidades-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px;
+}
+
+.unidade-card {
+  background-color: var(--white);
+  border-radius: 15px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.unidade-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  border-radius: 15px 15px 0 0;
+  padding: 15px;
+}
+
+.card-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sigla-text {
+  font-weight: 600;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.card-body {
+  padding: 15px;
+  color: var(--text-color);
+  min-height: 80px;
+}
+
+/* ===== Botões dentro dos cards ===== */
+.card-actions {
+  border-top: 1px solid #eee;
+  padding: 10px 15px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+.btn-edit,
+.btn-delete {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-edit {
+  color: var(--accent-color);
+}
+
+.btn-edit:hover {
+  color: #e59c00;
+  transform: scale(1.2);
+}
+
+.btn-delete {
+  color: #e74c3c;
+}
+
+.btn-delete:hover {
+  color: #c0392b;
+  transform: scale(1.2);
+}
+
+/* ===== Modal de edição ===== */
+.modal-content {
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+}
+
+.modal-header {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+}
+
+.modal-footer .btn-primary {
+  background: var(--accent-color);
+  border: none;
+  border-radius: 25px;
+  padding: 8px 18px;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.modal-footer .btn-primary:hover {
+  background: #e59c00;
+}
+
+/* Campo da sigla bloqueado */
+.sigla-disabled {
+  background-color: #f5f2ff !important;
+  color: #6a5e91 !important;
+  border: 2px solid #cbbef5 !important;
+  cursor: not-allowed;
+  font-weight: 600;
+}
+
+
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .input-row {
+    flex-direction: column;
+  }
+  .inputBox.nome,
+  .inputBox.sigla {
+    flex: 1;
+  }
+  .btn-add {
+    width: 100%;
+  }
+}

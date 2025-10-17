@@ -169,6 +169,154 @@ h2 {
   text-decoration: none;
 }
 
+/* ===== FORMULÁRIO MODERNO ===== */
+.form-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  padding: 30px 35px;
+  margin: 0 auto 40px;   /* centraliza */
+  transition: 0.3s;
+  max-width: 1600px;     /* 🔹 aumenta a largura */
+  width: 100%;
+}
+
+
+.form-card:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+}
+
+.form-title {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 25px;
+  color: var(--primary-color, #441281);
+}
+
+.form-title i {
+  font-size: 28px;
+  color: var(--accent-color, #f5ad00);
+}
+
+.form-title h3 {
+  font-weight: 700;
+  margin: 0;
+  color: var(--primary-color, #441281);
+}
+
+.form-title p {
+  font-size: 14px;
+  color: #777;
+  margin-left: auto;
+  font-style: italic;
+}
+
+.form-row {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 15px;
+}
+
+.inputBox {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.inputBox.small {
+  max-width: 180px;
+}
+
+.inputBox label {
+  font-weight: 600;
+  color: var(--primary-color, #441281);
+  margin-bottom: 6px;
+}
+
+.inputBox input,
+.inputBox select {
+  border: 2px solid var(--secondary-color, #915ad3);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-size: 15px;
+  background-color: #faf8ff;
+  color: #441281;
+  outline: none;
+  transition: all 0.3s;
+}
+
+.inputBox input:focus,
+.inputBox select:focus {
+  border-color: var(--accent-color, #f5ad00);
+  box-shadow: 0 0 6px rgba(245, 173, 0, 0.4);
+}
+
+.btn-add {
+  background: linear-gradient(90deg, var(--primary-color, #441281), var(--secondary-color, #915ad3));
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 24px;
+  font-weight: 600;
+  margin-top: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  align-self: flex-start;
+}
+
+.btn-add:hover {
+  background: linear-gradient(90deg, var(--secondary-color, #915ad3), var(--primary-color, #441281));
+  transform: scale(1.05);
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .inputBox.small {
+    max-width: 100%;
+  }
+
+  .btn-add {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* ====== CORRIGE CORTE DO TEXTO NO SELECT ====== */
+.modal-body select {
+  border: 2px solid #915ad3;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 15px;
+  color: #441281;
+  background-color: #fff;
+  outline: none;
+  transition: all 0.3s;
+  width: 100%;
+
+  /* 🔧 ESSENCIAL PARA CENTRALIZAR O TEXTO */
+  line-height: 1.5em;      /* aumenta o espaçamento vertical do texto */
+  height: auto;            /* ajusta dinamicamente conforme o conteúdo */
+  min-height: 45px;        /* garante que o texto nunca “encoste” no fundo */
+  box-sizing: border-box;  /* evita estouro */
+}
+
+.modal-body select:focus {
+  border-color: #f5ad00;
+  box-shadow: 0 0 6px rgba(245, 173, 0, 0.4);
+}
+
+.modal-body select,
+.modal-body select option {
+  font-family: 'Poppins', sans-serif; /* mantém consistência */
+  line-height: normal;
+}
+
 .remove-gerente {
   margin-left: 10px;
   color: #e74c3c;
@@ -182,5 +330,5 @@ h2 {
 
 .remove-gerente:hover {
   color: #c0392b;
-  transform: scale(1.15);
+  transform: scale(1.1);
 }

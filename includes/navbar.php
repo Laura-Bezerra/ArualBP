@@ -12,6 +12,12 @@
                         <a class="nav-link" href="../pages/cadastro_bp.php">Cadastro BP</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="../pages/cadastro_categoria.php">Cadastro Categoria</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/cadastro_unidade.php">Cadastro Unidade</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="../pages/cadastro_usuario.php">Cadastro Usuário</a>
                     </li>
                     <li class="nav-item">
@@ -30,6 +36,9 @@
                     </li>                    
                     <li class="nav-item">
                         <a class="nav-link" href="../pages/cadastro_bp.php">Cadastro BP</a>
+                    </li>
+                        <li class="nav-item">
+                        <a class="nav-link" href="../pages/cadastro_categoria.php">Cadastro Categoria</a>
                     </li>                    
                     <li class="nav-item">
                         <a class="nav-link" href="../pages/gerenciar_solicitacoes.php">Gerenciar Solicitações</a>

@@ -1,0 +1,222 @@
+:root {
+  --primary-color: #441281;
+  --secondary-color: #915ad3;
+  --accent-color: #f5ad00;
+  --bg-color: #f3f0fa;
+  --text-color: #441281;
+  --white: #ffffff;
+  --light-gray: #f9f8fc;
+}
+
+/* ===== Reset ===== */
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== Container principal ===== */
+.page-container {
+  max-width: 1100px;
+  margin: 50px auto;
+  padding: 0 20px;
+}
+
+/* ===== Seção do formulário ===== */
+.form-section {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+  border-radius: 16px;
+  padding: 35px 40px;
+  margin-bottom: 40px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.form-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-header i {
+  font-size: 32px;
+  color: var(--accent-color);
+}
+
+.form-header h2 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+
+.form-header p {
+  margin-top: 5px;
+  color: #f8eaf5;
+  font-weight: 400;
+}
+
+/* ===== Estilo do formulário ===== */
+.modern-form {
+  display: flex;
+  align-items: flex-end;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.inputBox {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.inputBox label {
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.inputBox input {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 1rem;
+  outline: none;
+  transition: box-shadow 0.3s ease;
+}
+
+.inputBox input:focus {
+  box-shadow: 0 0 0 3px rgba(245, 173, 0, 0.5);
+}
+
+/* ===== Botão de adicionar ===== */
+.btn-add {
+  background: var(--accent-color);
+  border: none;
+  color: var(--white);
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 12px 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-add:hover {
+  background: #e59c00;
+  transform: scale(1.05);
+}
+
+/* ===== Cards de categorias ===== */
+.categorias-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+  gap: 20px;
+}
+
+.categoria-card {
+  background: var(--white);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.categoria-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.card-header h3 {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+/* ===== Botões ===== */
+.btn-edit,
+.btn-delete {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 20px;
+  transition: all 0.2s ease;
+}
+
+.btn-edit {
+  color: var(--secondary-color);
+}
+
+.btn-edit:hover {
+  color: var(--accent-color);
+  transform: scale(1.2);
+}
+
+.btn-delete {
+  color: #e74c3c;
+}
+
+.btn-delete:hover {
+  color: #c0392b;
+  transform: scale(1.2);
+}
+
+/* ===== Mensagem quando não há categorias ===== */
+.sem-categorias {
+  text-align: center;
+  font-style: italic;
+  color: #777;
+  margin-top: 40px;
+}
+
+/* ===== Modal ===== */
+.modal-content {
+  border-radius: 12px;
+  border: none;
+}
+
+.modal-header {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+}
+
+.modal-footer .btn-primary {
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 25px;
+  padding: 8px 20px;
+  font-weight: 600;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #e59c00;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .modern-form {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-add {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .categorias-container {
+    grid-template-columns: 1fr;
+  }
+}

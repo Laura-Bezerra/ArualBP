@@ -15,3 +15,23 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+
+document.querySelectorAll(".toggle-status").forEach(toggle => {
+  toggle.addEventListener("change", async (e) => {
+    const id = e.target.dataset.id;
+
+    try {
+      const response = await fetch("../actions/toggle_usuario_status.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `id=${id}`,
+      });
+      const data = await response.json();
+      console.log("Status atualizado:", data);
+    } catch (error) {
+      console.error("Erro ao atualizar status:", error);
+      alert("Erro ao atualizar status do usuário!");
+    }
+  });
+});

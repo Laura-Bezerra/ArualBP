@@ -32,36 +32,47 @@
     <div class="modal-content">
       <form action="../actions/cadastro_setor_actions.php" method="POST">
         <div class="modal-header bg-primary text-white">
-          <h5 class="modal-title">Editar Setor</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+          <h5 class="modal-title" id="editSetorModalLabel">Editar Setor</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
+
         <div class="modal-body">
-          <input type="hidden" name="id" id="edit_id">
+          <input type="hidden" id="edit_id" name="id">
 
           <div class="mb-3">
-            <label for="edit_nome">Nome do Setor</label>
-            <input type="text" name="nome" id="edit_nome" class="form-control" required>
+            <label for="edit_nome" class="form-label">Nome do Setor</label>
+            <input type="text" id="edit_nome" name="nome" class="form-control" required>
           </div>
 
           <div class="mb-3">
-            <label for="edit_usuario">Responsável</label>
-            <select name="usuario_id" id="edit_usuario" class="form-select">
-              <option value="">Sem responsável</option>
+            <label for="edit_codigo" class="form-label">Código</label>
+            <input type="text" id="edit_codigo" name="codigo" class="form-control" readonly>
+          </div>
+
+          <div class="mb-3">
+            <label for="edit_unidade" class="form-label">Unidade Vinculada</label>
+            <select id="edit_unidade" name="unidade_id" class="form-control">
+              <option value="">— Nenhuma unidade —</option>
               <?php
-              $sqlUsuariosModal2 = "SELECT * FROM usuarios ORDER BY nome ASC";
-              $resultUsuariosModal2 = $conexao->query($sqlUsuariosModal2);
-              while ($usuario = $resultUsuariosModal2->fetch_assoc()):
+              $sqlUnidadesModal = "SELECT id, nome, sigla FROM unidades ORDER BY nome ASC";
+              $resUnidadesModal = $conexao->query($sqlUnidadesModal);
+              while ($u = $resUnidadesModal->fetch_assoc()):
               ?>
-                <option value="<?= $usuario['id'] ?>"><?= $usuario['nome'] ?></option>
+                <option value="<?= $u['id']; ?>">
+                  <?= htmlspecialchars($u['nome']); ?> (<?= htmlspecialchars($u['sigla']); ?>)
+                </option>
               <?php endwhile; ?>
             </select>
           </div>
         </div>
+
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
           <button type="submit" name="update" class="btn btn-primary">Salvar Alterações</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+

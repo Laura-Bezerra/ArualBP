@@ -1,39 +1,66 @@
 <?php
 include_once('../includes/config.php');
+session_start();
 
-// === CADASTRAR NOVO SETOR ===
+// 🔒 Apenas admin
+if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') {
+    header('Location: ../login.php');
+    exit();
+}
+
+// === INSERÇÃO ===
 if (isset($_POST['submit'])) {
     $nome = trim($_POST['nome']);
+    $codigo = strtoupper(trim($_POST['codigo']));
+    $unidade_id = $_POST['unidade_id'] ?? null;
 
-    // Por padrão, nenhum usuário vinculado no momento do cadastro
-    $sql = "INSERT INTO setores (nome, usuario_id) VALUES (?, NULL)";
-    $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("s", $nome);
-
-    if ($stmt->execute()) {
-        header("Location: ../pages/cadastro_setor.php?status=success");
-        exit;
-    } else {
-        echo "Erro ao cadastrar setor: " . $stmt->error;
+    // Gera código automaticamente se estiver vazio
+    if (empty($codigo)) {
+        // Gera 4 caracteres aleatórios (A-Z + 0-9)
+        $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $codigo = '';
+        for ($i = 0; $i < 4; $i++) {
+            $codigo .= $caracteres[random_int(0, strlen($caracteres) - 1)];
+        }
     }
+
+    // Evita duplicidade de código
+    $check = $conexao->prepare("SELECT COUNT(*) AS total FROM setores WHERE codigo = ?");
+    $check->bind_param("s", $codigo);
+    $check->execute();
+    $exists = $check->get_result()->fetch_assoc();
+
+    if ($exists['total'] > 0) {
+        echo "<script>
+                alert('Já existe um setor com este código!');
+                window.location.href = '../pages/cadastro_setor.php';
+              </script>";
+        exit;
+    }
+
+    $sql = "INSERT INTO setores (nome, codigo, unidade_id) VALUES (?, ?, ?)";
+    $stmt = $conexao->prepare($sql);
+    $stmt->bind_param("ssi", $nome, $codigo, $unidade_id);
+    $stmt->execute();
+
+    header('Location: ../pages/cadastro_setor.php');
+    exit();
 }
 
-
-// === ATUALIZAR SETOR EXISTENTE ===
+// === ATUALIZAÇÃO ===
 if (isset($_POST['update'])) {
-    $id = $_POST['id'];
+    $id = intval($_POST['id']);
     $nome = trim($_POST['nome']);
-    $usuario_id = !empty($_POST['usuario_id']) ? $_POST['usuario_id'] : null;
+    $codigo = trim($_POST['codigo']);
+    $unidade_id = !empty($_POST['unidade_id']) ? intval($_POST['unidade_id']) : null;
 
-    $sql = "UPDATE setores SET nome=?, usuario_id=? WHERE id=?";
+    $sql = "UPDATE setores SET nome = ?, unidade_id = ? WHERE id = ?";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("sii", $nome, $usuario_id, $id);
+    $stmt->bind_param("sii", $nome, $unidade_id, $id);
 
-    if ($stmt->execute()) {
-        header("Location: ../pages/cadastro_setor.php?status=updated");
-        exit;
-    } else {
-        echo "Erro ao atualizar setor: " . $stmt->error;
-    }
+    $stmt->execute();
+    header("Location: ../pages/cadastro_setor.php");
+    exit();
 }
+
 ?>

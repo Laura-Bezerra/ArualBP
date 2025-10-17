@@ -244,3 +244,13 @@ a:hover {
     font-size: 1.4em;
   }
 }
+
+/* ====== CORRIGE CORTE DO TEXTO NO SELECT ====== */
+.modal-body select {
+  /* 🔧 ESSENCIAL PARA CENTRALIZAR O TEXTO */
+  line-height: 1.5em;      /* aumenta o espaçamento vertical do texto */
+  height: auto;            /* ajusta dinamicamente conforme o conteúdo */
+  min-height: 45px;        /* garante que o texto nunca “encoste” no fundo */
+  box-sizing: border-box;  /* evita estouro */
+}
+
