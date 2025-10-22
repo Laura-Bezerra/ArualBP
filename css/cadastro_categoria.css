@@ -220,3 +220,42 @@ body {
     grid-template-columns: 1fr;
   }
 }
+/* Permite que o dropdown apareça por cima dos elementos */
+.container,
+.form-inline {
+  overflow: visible !important;
+  position: relative;
+  z-index: 1;
+}
+
+select.form-control {
+  position: relative;
+  z-index: 9999 !important;
+  min-width: 350px;
+  max-width: 500px;
+  background-color: #fff;
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 1rem;
+  color: var(--text-dark);
+  cursor: pointer;
+  appearance: none;
+  background-image: linear-gradient(45deg, transparent 50%, var(--accent-color) 50%), 
+                    linear-gradient(135deg, var(--accent-color) 50%, transparent 50%);
+  background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) calc(1em + 2px);
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+}
+
+select.form-control:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px rgba(245, 173, 0, 0.4);
+}
+
+.modal-dialog {
+  overflow: visible !important;
+}
+.modal {
+  overflow-y: visible !important;
+}

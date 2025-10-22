@@ -4,7 +4,7 @@ include_once('../includes/config.php');
 include '../includes/header.php';
 include '../includes/navbar.php';
 
-if (!isset($_SESSION['id']) || ($_SESSION['nivel_acesso'] !== 'gerente' && $_SESSION['nivel_acesso'] !== 'admin')) {
+if (!isset($_SESSION['id']) || !in_array($_SESSION['nivel_acesso'], ['gerente', 'admin'])) {
     header('Location: login.php');
     exit();
 }
@@ -33,14 +33,26 @@ $resultUsuarios = $conexao->query($sqlUsuarios);
 
 // ===== CONSULTA PRINCIPAL =====
 $sql = "
-    SELECT s.id, u.nome AS usuario_nome, st.nome AS setor_nome, 
-           b.descricao AS bp_descricao, s.descricao, s.status, s.data_solicitacao
+    SELECT 
+        s.id,
+        u.nome AS usuario_nome,
+        st.nome AS setor_nome,
+        b.nome_item AS nome_item,
+        s.campo_alterado,
+        s.valor_atual,
+        s.novo_valor,
+        s.descricao AS motivo,
+        s.tipo,
+        s.status,
+        s.data_solicitacao,
+        s.data_aprovacao
     FROM solicitacoes s
     JOIN usuarios u ON s.usuario_id = u.id
     JOIN setores st ON s.setor_id = st.id
-    JOIN bps b ON s.bp_id = b.id
+    LEFT JOIN bps b ON s.bp_id = b.id
     WHERE st.gerente_id = '$gerente_id'
 ";
+
 
 // 🔸 Aplica filtros se houver
 if (!empty($filtro_setor)) {
@@ -57,7 +69,10 @@ $result = $conexao->query($sql);
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<link rel="stylesheet" href="../css/gerenciar_solicitacoes.css">
+    <meta charset="UTF-8">
+    <title>Gerenciar Solicitações | Controle Patrimonial</title>
+    <link rel="stylesheet" href="../css/gerenciar_solicitacoes.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
 <div class="conteudo">
@@ -96,15 +111,22 @@ $result = $conexao->query($sql);
         </div>
     </form>
 
-    <!-- ===== TABELA ===== -->
+   <!-- ===== TABELA ===== -->
     <table>
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Usuário</th>
                 <th>Setor</th>
-                <th>Descrição</th>
+                <th>Item</th>
+                <th>Tipo</th>
+                <th>Campo Alterado</th>
+                <th>Valor Atual</th>
+                <th>Novo Valor</th>
+                <th>Motivo</th>
                 <th>Status</th>
+                <th>Data Abertura</th>
+                <th>Data Aprovação</th>
                 <th>Ações</th>
             </tr>
         </thead>
@@ -115,14 +137,29 @@ $result = $conexao->query($sql);
                         <td><?= $row['id']; ?></td>
                         <td><?= htmlspecialchars($row['usuario_nome']); ?></td>
                         <td><?= htmlspecialchars($row['setor_nome']); ?></td>
-                        <td><?= htmlspecialchars($row['descricao']); ?></td>
-                        <td><?= htmlspecialchars($row['status']); ?></td>
+                        <td><?= $row['nome_item'] ? htmlspecialchars($row['nome_item']) : '<em class="text-muted">Item excluído</em>'; ?></td>
+                        <td><?= ucfirst($row['tipo']); ?></td>
+                        <td><?= htmlspecialchars($row['campo_alterado'] ?? '-'); ?></td>
+                        <td><?= htmlspecialchars($row['valor_atual'] ?? '-'); ?></td>
+                        <td><?= htmlspecialchars($row['novo_valor'] ?? '-'); ?></td>
+                        <td><?= htmlspecialchars($row['motivo']); ?></td>
+                        <td class="<?= $row['status'] === 'pendente' ? 'text-warning' : ($row['status'] === 'aprovado' ? 'text-success' : 'text-danger'); ?>">
+                            <?= ucfirst($row['status']); ?>
+                        </td>
+                        <td><?= date('d/m/Y H:i', strtotime($row['data_solicitacao'])) ?></td>
+                        <td>
+                            <?= $row['data_aprovacao'] ? date('d/m/Y H:i', strtotime($row['data_aprovacao'])) : '<em class="text-muted">—</em>' ?>
+                        </td>
                         <td class="acoes">
                             <?php if ($row['status'] === 'pendente'): ?>
-                                <form action="../actions/status_solicitacao.php" method="post">
+                                <form action="../actions/status_solicitacao.php" method="post" class="acoes">
                                     <input type="hidden" name="solicitacao_id" value="<?= $row['id']; ?>">
-                                    <button name="acao" value="aprovar" type="submit">Aprovar</button>
-                                    <button name="acao" value="recusar" type="submit">Recusar</button>
+                                    <button name="acao" value="aprovar" type="submit" class="btn-aprovar" title="Aprovar">
+                                        <i class="fa-solid fa-check"></i>
+                                    </button>
+                                    <button name="acao" value="recusar" type="submit" class="btn-recusar" title="Recusar">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
                                 </form>
                             <?php else: ?>
                                 <span>-</span>
@@ -132,14 +169,13 @@ $result = $conexao->query($sql);
                 <?php endwhile; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="6" style="text-align:center; color:gray;">Nenhuma solicitação encontrada.</td>
+                    <td colspan="13" style="text-align:center; color:gray;">Nenhuma solicitação encontrada.</td>
                 </tr>
             <?php endif; ?>
         </tbody>
     </table>
 </div>
 
-<script src="https://kit.fontawesome.com/a2d5b8d7e4.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -32,3 +32,19 @@ body {
     color: red;
     font-size: 18px;
 }
+
+#modalSolicitacao .modal-header {
+  background: linear-gradient(90deg, #441281, #915ad3);
+  color: #fff;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+#modalSolicitacao .form-select,
+#modalSolicitacao .form-control {
+  border-radius: 8px;
+  border: 2px solid #915ad3;
+}
+#modalSolicitacao .btn-primary {
+  background: linear-gradient(90deg, #441281, #915ad3);
+  border: none;
+}

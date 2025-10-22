@@ -1,103 +1,112 @@
 <?php
 include_once('../includes/config.php');
-include_once('../includes/flash.php');
 
-// --- Cadastro de novo usuário ---
 if (isset($_POST['submit'])) {
     $nome = trim($_POST['nome']);
-    $usuario = trim($_POST['usuario']);
     $email = trim($_POST['email']);
-    $senha = password_hash(trim($_POST['senha']), PASSWORD_DEFAULT);
+    $usuario = trim($_POST['usuario']);
+    $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
     $nivel_acesso = $_POST['nivel_acesso'];
 
-    // 🔹 Verifica se o nome de usuário já existe
-    $check = $conexao->prepare("SELECT COUNT(*) AS total FROM usuarios WHERE usuario = ?");
-    $check->bind_param("s", $usuario);
-    $check->execute();
-    $result = $check->get_result()->fetch_assoc();
+    // Verifica se o nome de usuário já existe
+    $sql_check = "SELECT id FROM usuarios WHERE usuario = ?";
+    $stmt_check = $conexao->prepare($sql_check);
+    $stmt_check->bind_param("s", $usuario);
+    $stmt_check->execute();
+    $stmt_check->store_result();
 
-    if ($result['total'] > 0) {
-        setFlash('error', "❌ O nome de usuário <strong>$usuario</strong> já está sendo utilizado. Escolha outro.", [
-            'nome' => $nome,
-            'email' => $email,
-            'usuario' => $usuario,
-            'nivel_acesso' => $nivel_acesso
-        ]);
-        header("Location: ../pages/cadastro_usuario.php");
+    if ($stmt_check->num_rows > 0) {
+        // Usuário já existe
+        echo "<script>
+                alert('⚠️ O nome de usuário \"$usuario\" já está em uso. Escolha outro.');
+                window.history.back();
+              </script>";
         exit;
     }
 
-    // 🔹 Se não existir, faz o cadastro normalmente
-    $sql = "INSERT INTO usuarios (nome, usuario, email, senha, nivel_acesso, ativo) 
+    // Cadastra novo usuário
+    $sql = "INSERT INTO usuarios (nome, email, usuario, senha, nivel_acesso, ativo)
             VALUES (?, ?, ?, ?, ?, 1)";
     $stmt = $conexao->prepare($sql);
-    $stmt->bind_param("sssss", $nome, $usuario, $email, $senha, $nivel_acesso);
+    $stmt->bind_param("sssss", $nome, $email, $usuario, $senha, $nivel_acesso);
 
     if ($stmt->execute()) {
-        setFlash('success', "✅ Usuário <strong>$usuario</strong> cadastrado com sucesso!");
-    } else {
-        setFlash('error', "⚠️ Erro ao cadastrar o usuário.");
-    }
-
-    header("Location: ../pages/cadastro_usuario.php");
-    exit;
-}
-
-// ========== ATUALIZAR USUÁRIO EXISTENTE ==========
-if (isset($_POST['update'])) {
-    $id = $_POST['id'];
-    $nome = trim($_POST['nome']);
-    $usuario = trim($_POST['usuario']);
-    $email = trim($_POST['email']);
-    $nivel_acesso = $_POST['nivel_acesso'];
-    $senha = $_POST['senha'] ?? '';
-
-    if (!empty($senha)) {
-        // Atualiza com nova senha (criptografada)
-        $senha_hash = password_hash($senha, PASSWORD_DEFAULT);
-        $sql = "UPDATE usuarios 
-                SET nome=?, usuario=?, email=?, senha=?, nivel_acesso=? 
-                WHERE id=?";
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("sssssi", $nome, $usuario, $email, $senha_hash, $nivel_acesso, $id);
-    } else {
-        // Atualiza sem alterar senha
-        $sql = "UPDATE usuarios 
-                SET nome=?, usuario=?, email=?, nivel_acesso=? 
-                WHERE id=?";
-        $stmt = $conexao->prepare($sql);
-        $stmt->bind_param("ssssi", $nome, $usuario, $email, $nivel_acesso, $id);
-    }
-
-    if ($stmt->execute()) {
-        header('Location: ../pages/cadastro_usuario.php?status=updated');
+        echo "<script>
+                alert('✅ Usuário cadastrado com sucesso!');
+                window.location.href = '../pages/cadastro_usuario.php';
+              </script>";
         exit;
     } else {
-        echo "Erro ao atualizar: " . $stmt->error;
+        echo "<script>
+                alert('❌ Erro ao cadastrar usuário. Tente novamente.');
+                window.history.back();
+              </script>";
+        exit;
     }
 }
 
-// Ativar/Desativar usuário
-if (isset($_GET['toggle_id'])) {
-    $id = intval($_GET['toggle_id']);
+// === ATUALIZAÇÃO ===
+if (isset($_POST['update'])) {
+    $id = intval($_POST['id']);
+    $nome = trim($_POST['nome']);
+    $email = trim($_POST['email']);
+    $usuario = trim($_POST['usuario']);
+    $senha = $_POST['senha'] ? password_hash($_POST['senha'], PASSWORD_DEFAULT) : null;
+    $nivel_acesso = $_POST['nivel_acesso'];
 
-    // Pega o status atual
-    $sqlStatus = "SELECT ativo FROM usuarios WHERE id = ?";
-    $stmt = $conexao->prepare($sqlStatus);
-    $stmt->bind_param("i", $id);
-    $stmt->execute();
-    $result = $stmt->get_result()->fetch_assoc();
+    try {
+        // Verifica se já existe outro usuário com o mesmo nome de login
+        $sql_check = "SELECT id FROM usuarios WHERE usuario = ? AND id != ?";
+        $stmt_check = $conexao->prepare($sql_check);
+        $stmt_check->bind_param("si", $usuario, $id);
+        $stmt_check->execute();
+        $stmt_check->store_result();
 
-    $novoStatus = $result['ativo'] ? 0 : 1;
+        if ($stmt_check->num_rows > 0) {
+            echo "<script>
+                    alert('⚠️ Já existe outro usuário com este nome de login.');
+                    window.history.back();
+                  </script>";
+            exit;
+        }
 
-    // Atualiza
-    $sqlUpdate = "UPDATE usuarios SET ativo = ? WHERE id = ?";
-    $stmt2 = $conexao->prepare($sqlUpdate);
-    $stmt2->bind_param("ii", $novoStatus, $id);
-    $stmt2->execute();
+        // Atualiza o registro
+        if ($senha) {
+            $sql = "UPDATE usuarios SET nome=?, email=?, usuario=?, senha=?, nivel_acesso=? WHERE id=?";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bind_param("sssssi", $nome, $email, $usuario, $senha, $nivel_acesso, $id);
+        } else {
+            $sql = "UPDATE usuarios SET nome=?, email=?, usuario=?, nivel_acesso=? WHERE id=?";
+            $stmt = $conexao->prepare($sql);
+            $stmt->bind_param("ssssi", $nome, $email, $usuario, $nivel_acesso, $id);
+        }
 
-    header('Location: ../pages/cadastro_usuario.php');
+        if ($stmt->execute()) {
+            echo "<script>
+                    alert('✅ Usuário atualizado com sucesso!');
+                    window.location.href = '../pages/cadastro_usuario.php';
+                  </script>";
+        } else {
+            echo "<script>
+                    alert('❌ Erro ao atualizar usuário. Tente novamente.');
+                    window.history.back();
+                  </script>";
+        }
+    } catch (mysqli_sql_exception $e) {
+        // Tratamento específico para duplicidade ou outros erros SQL
+        if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
+            echo "<script>
+                    alert('⚠️ Este nome de usuário já está sendo utilizado. Escolha outro.');
+                    window.history.back();
+                  </script>";
+        } else {
+            echo "<script>
+                    alert('❌ Erro inesperado: " . addslashes($e->getMessage()) . "');
+                    window.history.back();
+                  </script>";
+        }
+    }
+
     exit;
 }
-
 ?>

@@ -54,6 +54,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="../pages/solicitacoes.php">Minhas Solicitações</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="../pages/relatorios.php">Relatórios</a>
+                    </li>
                 <?php endif; ?>
             </ul>
             <a href="../pages/sair.php" class="btn btn-danger me-5">Sair</a>

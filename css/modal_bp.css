@@ -1,0 +1,179 @@
+:root {
+  --primary-color: #441281;
+  --secondary-color: #915ad3;
+  --accent-color: #f5ad00;
+  --bg-color: #f4f2f8;
+  --white: #ffffff;
+  --text-dark: #2c2c2c;
+}
+
+/* ===== Modal base ===== */
+.modal-content {
+  border-radius: 20px;
+  border: none;
+  background: var(--white);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  animation: fadeSlide 0.3s ease;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Cabeçalho ===== */
+.modal-header {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+  border-bottom: none;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  padding: 18px 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-header h5 {
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.modal-header i {
+  color: var(--accent-color);
+  font-size: 1.4rem;
+}
+
+/* ===== Corpo ===== */
+.modal-body {
+  padding: 25px 30px;
+  background: var(--bg-color);
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.modal-body .form-label {
+  color: var(--primary-color);
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: inline-block;
+}
+
+.modal-body input,
+.modal-body select,
+.modal-body textarea {
+  width: 100%;
+  border: 2px solid var(--secondary-color);
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  background: #fff;
+  outline: none;
+  transition: all 0.3s ease;
+  margin-bottom: 14px;
+}
+
+.modal-body input:focus,
+.modal-body select:focus,
+.modal-body textarea:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 8px rgba(245, 173, 0, 0.4);
+}
+
+/* ===== Textarea ===== */
+.modal-body textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ===== Rodapé ===== */
+.modal-footer {
+  background: #faf8ff;
+  border-top: 1px solid #eee;
+  padding: 16px 25px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ===== Botões ===== */
+.modal-footer .btn {
+  border-radius: 10px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding: 10px 20px;
+  min-width: 120px;
+}
+
+.modal-footer .btn-secondary {
+  background: #ddd;
+  color: #333;
+  border: none;
+}
+
+.modal-footer .btn-secondary:hover {
+  background: #ccc;
+  transform: scale(1.05);
+}
+
+.modal-footer .btn-primary,
+.modal-footer .btn-success {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  color: white;
+}
+
+.modal-footer .btn-primary:hover,
+.modal-footer .btn-success:hover {
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  transform: scale(1.05);
+}
+
+/* ===== Ícones dos botões ===== */
+.modal-footer .btn i {
+  margin-right: 6px;
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 768px) {
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-body input,
+  .modal-body select,
+  .modal-body textarea {
+    font-size: 0.9rem;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+  }
+
+  .modal-footer .btn {
+    width: 100%;
+  }
+}
+
+.modal-footer .btn-success {
+  background: var(--accent-color);
+}
+
+.modal-footer .btn-success:hover {
+  background: #e59c00;
+}
+
+.modal-body input::placeholder {
+  color: #aaa;
+  opacity: 0.8;
+}

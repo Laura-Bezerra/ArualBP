@@ -3,8 +3,8 @@ include_once('../includes/config.php');
 session_start();
 
 // 🔒 Apenas admin
-if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') {
-    header('Location: ../login.php');
+if (!isset($_SESSION['id']) || !in_array($_SESSION['nivel_acesso'], ['gerente', 'admin'])) {
+    header('Location: login.php');
     exit();
 }
 

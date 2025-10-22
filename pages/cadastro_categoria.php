@@ -4,7 +4,7 @@ include_once('../includes/config.php');
 include '../includes/header.php';
 include '../includes/navbar.php';
 
-if (!isset($_SESSION['id']) || ($_SESSION['nivel_acesso'] !== 'gerente' && $_SESSION['nivel_acesso'] !== 'admin')) {
+if (!isset($_SESSION['id']) || !in_array($_SESSION['nivel_acesso'], ['gerente', 'admin'])) {
     header('Location: login.php');
     exit();
 }

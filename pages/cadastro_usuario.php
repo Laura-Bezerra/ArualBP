@@ -3,8 +3,6 @@ session_start();
 include_once('../includes/config.php');
 include '../includes/header.php';
 include '../includes/navbar.php';
-include '../includes/flash.php';
-
 ?>
 
 <!DOCTYPE html>
@@ -19,37 +17,39 @@ include '../includes/flash.php';
         <form action="../actions/cadastro_usuarios_actions.php" method="POST">
             <fieldset>
                 <legend><b>Cadastro de Usuários</b></legend>
-                <?php showFlash(); ?> 
+
                 <div class="inputBox">
-                    <input type="text" name="nome" id="nome" class="inputUser" value="<?= old('nome') ?>" required>
+                    <input type="text" name="nome" id="nome" class="inputUser" required>
                     <label for="nome">Nome completo</label>
                 </div>                
+
                 <div class="inputBox">
-                    <input type="email" name="email" id="email" class="inputUser" value="<?= old('email') ?>" required>
+                    <input type="email" name="email" id="email" class="inputUser" required>
                     <label for="email">E-mail*</label>
                 </div>
+
                 <div class="linha-dupla">
+                    <div class="inputBox metade">
+                        <input type="text" name="usuario" id="usuario" class="inputUser" required>
+                        <label for="usuario">Usuário*</label>
+                    </div>
 
-                <div class="inputBox metade">
-                    <input type="text" name="usuario" id="usuario" class="inputUser" value="<?= old('usuario') ?>" required>
-                    <label for="usuario">Usuário*</label>
-                </div>
-
-                <div class="inputBox metade">
-                    <input type="password" name="senha" id="senha" class="inputUser" required>
-                    <label for="senha">Senha</label>
-                </div>
+                    <div class="inputBox metade">
+                        <input type="password" name="senha" id="senha" class="inputUser" required>
+                        <label for="senha">Senha</label>
+                    </div>
                 </div>
 
                 <div class="inputBox">                    
                     <label for="nivel_acesso">Nível de Acesso</label>                        
                     <br>
                     <select name="nivel_acesso" id="nivel_acesso">
-                        <option value="usuario" <?= old('nivel_acesso') === 'usuario' ? 'selected' : '' ?>>Usuário Comum</option>
-                        <option value="gerente" <?= old('nivel_acesso') === 'gerente' ? 'selected' : '' ?>>Gerente</option>
-                        <option value="admin" <?= old('nivel_acesso') === 'admin' ? 'selected' : '' ?>>Administrador</option>
+                        <option value="usuario">Usuário Comum</option>
+                        <option value="gerente">Gerente</option>
+                        <option value="admin">Administrador</option>
                     </select>
                 </div>
+
                 <input type="submit" name="submit" id="submit" value="Cadastrar">
             </fieldset>
         </form>
@@ -66,8 +66,8 @@ include '../includes/flash.php';
                         <th>Status</th>
                         <th>Ações</th>
                     </tr>
-                    </thead>
-                    <tbody>
+                </thead>
+                <tbody>
                     <?php
                     $sql = "SELECT * FROM usuarios ORDER BY id DESC";
                     $result2 = $conexao->query($sql);
@@ -83,7 +83,7 @@ include '../includes/flash.php';
                                     <input type='checkbox' class='toggle-status' data-id='{$user_data['id']}' $checked>
                                     <span class='slider round'></span>
                                 </label>
-                                </td>";
+                              </td>";
                         echo "<td>
                                 <button class='btn btn-success btn-sm editBtn'
                                         data-bs-toggle='modal' data-bs-target='#editModal'
@@ -95,22 +95,20 @@ include '../includes/flash.php';
                                     Editar
                                 </button>
                                 <a href='../actions/delete_usuarios.php?id={$user_data['id']}' 
-                                    onclick='return confirm(\"Tem certeza que deseja excluir?\")'
-                                    class='btn btn-danger btn-sm'>Deletar</a>
-                                </td>";
+                                   onclick='return confirm(\"Tem certeza que deseja excluir?\")'
+                                   class='btn btn-danger btn-sm'>Deletar</a>
+                              </td>";
                         echo "</tr>";
                     }
                     ?>
-                    </tbody>
+                </tbody>
             </table>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
     <?php include '../includes/modal_user.php'; ?>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="../js/cadastro_usuario.js"></script>
-
 </div>
 </body>
 </html>

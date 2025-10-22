@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header bg-primary text-white">
         <h5 class="modal-title" id="etiquetaModalLabel">Etiquetas vinculadas</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">&times;</button>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Fechar">&times;</button>
       </div>
 
       <div class="modal-body">
@@ -13,7 +13,7 @@
 
       <div class="modal-footer">
         <button id="btn-imprimir-todas" class="btn btn-warning">🖨️ Imprimir todas</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
     </div>
   </div>

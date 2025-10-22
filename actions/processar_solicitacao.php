@@ -6,8 +6,13 @@ if (isset($_POST['submit'])) {
     $bp_id = intval($_POST['bp_id']);
     $descricao = trim($_POST['descricao']);
     $usuario_id = $_SESSION['id'];
+    $tipo = $_POST['tipo_solicitacao'];
 
-    // 🔹 Busca o setor do BP selecionado
+    $campo_alterado = $tipo === 'alteracao' ? trim($_POST['campo_alterar']) : null;
+    $valor_atual = $tipo === 'alteracao' ? trim($_POST['valor_atual']) : null;
+    $novo_valor = $tipo === 'alteracao' ? trim($_POST['novo_valor']) : null;
+
+    // Busca setor do BP
     $sqlSetor = "SELECT setor_id FROM bps WHERE id = ?";
     $stmt = $conexao->prepare($sqlSetor);
     $stmt->bind_param("i", $bp_id);
@@ -15,20 +20,15 @@ if (isset($_POST['submit'])) {
     $resultSetor = $stmt->get_result()->fetch_assoc();
     $setor_id = $resultSetor['setor_id'];
 
-    // 🔹 Salva a solicitação
-    $sqlInsert = "INSERT INTO solicitacoes (bp_id, setor_id, usuario_id, descricao, status, data_solicitacao)
-                  VALUES (?, ?, ?, ?, 'pendente', NOW())";
+    // Inserção
+    $sqlInsert = "INSERT INTO solicitacoes 
+        (bp_id, setor_id, usuario_id, tipo, campo_alterado, valor_atual, novo_valor, descricao, status, data_solicitacao)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pendente', NOW())";
     $stmt = $conexao->prepare($sqlInsert);
-    $stmt->bind_param("iiis", $bp_id, $setor_id, $usuario_id, $descricao);
+    $stmt->bind_param("iiisssss", $bp_id, $setor_id, $usuario_id, $tipo, $campo_alterado, $valor_atual, $novo_valor, $descricao);
+    $stmt->execute();
 
-    if ($stmt->execute()) {
-        header("Location: ../pages/solicitacoes.php?success=1");
-        exit;
-    } else {
-        echo "Erro ao enviar solicitação: " . $conexao->error;
-    }
-} else {
-    header("Location: ../pages/home_usuario.php");
+    header("Location: ../pages/home_usuario.php?setor_selecionado=$setor_id&success=1");
     exit;
 }
 ?>

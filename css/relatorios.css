@@ -1,0 +1,320 @@
+/* ================================
+   ARUALBP - RELATÓRIOS (v2)
+   Moderno, clean e compatível com navbar
+   ================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #faf7ff 0%, #f3edff 100%);
+    margin: 0;
+    padding: 0;
+}
+
+/* ================================
+   Conteúdo principal da página
+================================ */
+.container {
+    background: #fff;
+    max-width: 950px;
+    width: 90%;
+    margin: 60px auto;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(68, 18, 129, 0.1);
+    padding: 40px 50px;
+    position: relative;
+    animation: fadeIn 0.5s ease;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle at center, rgba(145,90,211,0.15), transparent 70%);
+    border-radius: 50%;
+}
+
+/* ================================
+   Título principal
+================================ */
+h1 {
+    color: #441281;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+/* ================================
+   Labels e campos
+================================ */
+label {
+    font-weight: 600;
+    color: #441281;
+    display: block;
+    
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.form-select,
+.form-control {
+    width: 100%;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1.6px solid #ddd;
+    background-color: #fdfdfd;
+    transition: all 0.3s ease;
+    font-size: 15px;
+    color: #333;
+}
+
+.form-select:focus,
+.form-control:focus {
+    outline: none;
+    border-color: #915ad3;
+    background-color: #fff;
+    box-shadow: 0 0 0 3px rgba(145, 90, 211, 0.15);
+}
+
+/* ================================
+   Filtros dinâmicos
+================================ */
+#parametros-relatorio {
+    transition: all 0.3s ease;
+    transform-origin: top;
+    animation: fadeInUp 0.3s ease;
+}
+
+/* ================================
+   Checkboxes alinhadas + animação "bolha"
+================================ */
+.form-check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 8px;
+    line-height: 1.3;
+    position: relative;
+}
+
+/* Caixa base */
+.form-check-input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #915ad3;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    background-color: #fff;
+    box-shadow: 0 0 0 rgba(145, 90, 211, 0);
+}
+
+/* Ao passar o mouse */
+.form-check-input:hover {
+    border-color: #441281;
+    transform: scale(1.1);
+}
+
+/* Quando marcada */
+.form-check-input:checked {
+    background-color: #915ad3;
+    border-color: #915ad3;
+    animation: pop 0.25s ease-out;
+}
+
+/* Check animado */
+.form-check-input:checked::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 2px;
+    width: 4px;
+    height: 8px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg) scale(0);
+    opacity: 0;
+    animation: checkmark 0.3s ease forwards 0.1s;
+}
+
+/* Bolhas */
+.form-check-input:checked::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(145, 90, 211, 0.3);
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.8;
+    animation: bubble 0.4s ease-out;
+    z-index: -1;
+}
+
+/* Label */
+.form-check-label {
+    color: #333;
+    font-size: 15px;
+    cursor: pointer;
+    user-select: none;
+    transition: color 0.2s ease;
+}
+
+.form-check:hover .form-check-label {
+    color: #441281;
+}
+
+/* ================================
+   Keyframes (Animações) - checkbox
+================================ */
+
+/* Pequeno pop da caixa */
+@keyframes pop {
+    0% { transform: scale(1); box-shadow: 0 0 0 rgba(145, 90, 211, 0); }
+    50% { transform: scale(1.3); box-shadow: 0 0 10px rgba(145, 90, 211, 0.3); }
+    100% { transform: scale(1); box-shadow: 0 0 0 rgba(145, 90, 211, 0); }
+}
+
+/* Desenha o check ✓ */
+@keyframes checkmark {
+    0% { transform: rotate(45deg) scale(0); opacity: 0; }
+    50% { transform: rotate(45deg) scale(1.2); opacity: 1; }
+    100% { transform: rotate(45deg) scale(1); opacity: 1; }
+}
+
+/* Explosão de bolha */
+@keyframes bubble {
+    0% {
+        transform: translate(-50%, -50%) scale(0);
+        opacity: 0.6;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(2.5);
+        opacity: 0.3;
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(3.5);
+        opacity: 0;
+    }
+}
+
+
+/* ================================
+   Botão principal
+================================ */
+.btn-primary {
+    background: linear-gradient(90deg, #441281, #915ad3);
+    border: none;
+    color: #fff;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.btn-primary::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0.3), rgba(255,255,255,0));
+    transition: all 0.4s ease;
+}
+
+.btn-primary:hover::before {
+    left: 100%;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(68, 18, 129, 0.25);
+}
+
+/* ================================
+   Textos auxiliares
+================================ */
+.text-center {
+    text-align: center;
+}
+
+.text-muted {
+    color: #777;
+    font-size: 14px;
+}
+
+.mt-4 { margin-top: 1.5rem; }
+.mb-3 { margin-bottom: 1rem; }
+
+/* ================================
+   Animações
+================================ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: scaleY(0.95); }
+    to { opacity: 1; transform: scaleY(1); }
+}
+
+/* ================================
+   Scrollbar
+================================ */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #915ad3, #441281);
+    border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #441281;
+}
+
+/* ================================
+   Responsividade
+================================ */
+@media (max-width: 768px) {
+    .container {
+        width: 95%;
+        padding: 30px 25px;
+        margin-top: 40px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+}
+
+
+/* partículas do "fogo de artifício" */
+.explosion-particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: explode 0.6s ease-out forwards;
+  z-index: 10;
+}
+
+@keyframes explode {
+  0% { transform: scale(1) translate(0,0); opacity: 1; }
+  100% { transform: scale(0.7) translate(var(--x), var(--y)); opacity: 0; }
+}

@@ -1,39 +1,102 @@
 :root {
-  --primary-color: #441281;
-  --secondary-color: #915ad3;
-  --accent-color: #f5ad00;
-  --bg-color: #f4f2f8;
-  --text-color: #441281;
+  --primary: #441281;
+  --secondary: #915ad3;
+  --accent: #f5ad00;
+  --bg: #f4f2f8;
+  --text: #2c2c2c;
   --white: #ffffff;
+  --success: #2ecc71;
+  --danger: #e74c3c;
+  --warning: #f5ad00;
 }
 
 /* ===== Base ===== */
 body {
-  font-family: "Roboto", sans-serif;
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  font-family: "Poppins", sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
   margin: 0;
-  padding-bottom: 60px;
+  min-height: 100vh;
 }
 
-/* ===== Container principal ===== */
+/* ===== Container ===== */
 .conteudo {
-  max-width: 1400px;
-  margin: 70px auto;
-  padding: 20px 30px;
   background: var(--white);
-  border-radius: 15px;
-  box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+  max-width: 1900px;
+  margin: 60px auto;
+  padding: 40px 50px;
+  border-radius: 18px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  animation: fadeIn 0.1s ease-in-out;
+  overflow: hidden;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== Título ===== */
 h1 {
-  color: var(--primary-color);
-  text-align: center;
+  color: var(--primary);
   font-weight: 700;
+  text-align: center;
   font-size: 2rem;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== Filtros ===== */
+.form-filtros {
+  margin-bottom: 30px;
+  background-color: var(--white);
+  padding: 20px 30px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+.filtros-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filtro label {
+  font-weight: 600;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+.form-select {
+  border-radius: 10px;
+  border: 2px solid var(--secondary);
+  padding: 10px 14px;
+  transition: all 0.3s ease;
+  background: #faf8ff;
+}
+
+.form-select:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 6px rgba(245, 173, 0, 0.5);
+  outline: none;
+}
+
+.btn-filtrar {
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  border: none;
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-filtrar:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, var(--secondary), var(--primary));
 }
 
 /* ===== Tabela ===== */
@@ -41,194 +104,84 @@ table {
   width: 100%;
   border-collapse: collapse;
   background-color: var(--white);
-  border-radius: 15px;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-  margin-bottom: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
 thead {
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   color: #fff;
 }
 
-th,
-td {
-  padding: 14px 18px;
-  text-align: left;
+th, td {
+  padding: 12px 14px;
   font-size: 0.95rem;
+  text-align: left;
   border-bottom: 1px solid #eee;
 }
 
 th {
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+}
+
+tbody tr:hover {
+  background-color: #faf8ff;
+}
+
+/* ===== Status ===== */
+.status {
   font-weight: 600;
+  text-transform: capitalize;
+  text-align: center;
 }
+.status.pendente { color: var(--accent); }
+.status.aprovado { color: var(--success); }
+.status.recusado { color: var(--danger); }
 
-td:hover {
-  background-color: #f8f5ff;
-}
-
-/* ===== Coluna de ações ===== */
+/* ===== Ações ===== */
 .acoes {
   display: flex;
   justify-content: center;
-  gap: 12px;
-}
-
-.acoes form {
-  display: flex;
-  gap: 10px;
+  align-items: center;
+  gap: 8px;
 }
 
 .acoes button {
-  background-color: var(--accent-color);
   border: none;
-  color: white;
-  font-weight: 600;
-  border-radius: 25px;
-  padding: 6px 16px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 0.9rem;
-}
-
-.acoes button:hover {
-  background-color: #e59c00;
-  transform: scale(1.05);
-}
-
-/* ===== Botão de recusar ===== */
-.acoes button[name="acao"][value="recusar"] {
-  background-color: #e74c3c;
-}
-
-.acoes button[name="acao"][value="recusar"]:hover {
-  background-color: #c0392b;
-}
-
-/* ===== Status visual ===== */
-td:nth-child(5) {
-  font-weight: 600;
-  text-transform: capitalize;
-}
-
-td:nth-child(5)::before {
-  content: "● ";
-  font-size: 1rem;
-  vertical-align: middle;
-}
-
-td:nth-child(5):contains("pendente") {
-  color: var(--accent-color);
-}
-
-td:nth-child(5):contains("aprovado") {
-  color: #27ae60;
-}
-
-td:nth-child(5):contains("recusado") {
-  color: #c0392b;
-}
-
-/* ===== Botão Voltar ===== */
-.voltar-btn {
-  display: block;
-  width: 220px;
-  margin: 40px auto 0;
-  text-align: center;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-  color: #fff;
-  font-weight: 600;
-  border-radius: 30px;
-  padding: 12px 20px;
-  text-decoration: none;
-  transition: all 0.3s ease;
-}
-
-.voltar-btn:hover {
-  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
-  transform: scale(1.05);
-}
-
-/* ===== Responsividade ===== */
-@media (max-width: 992px) {
-  .conteudo {
-    padding: 15px;
-  }
-
-  table {
-    font-size: 0.9rem;
-  }
-
-  .acoes {
-    flex-direction: column;
-  }
-
-  .acoes button {
-    width: 100%;
-  }
-
-  h1 {
-    font-size: 1.6rem;
-  }
-}
-
-/* ===== FILTROS ===== */
-.form-filtros {
-  margin-bottom: 30px;
-  background-color: var(--white);
-  padding: 15px 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-}
-
-.filtros-container {
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   display: flex;
   align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
   justify-content: center;
-}
-
-.filtro {
-  display: flex;
-  flex-direction: column;
-  min-width: 200px;
-}
-
-.filtro label {
-  color: var(--primary-color);
-  font-weight: 600;
-  margin-bottom: 5px;
-}
-
-.form-select {
-  padding: 8px 12px;
-  border-radius: 10px;
-  border: 2px solid var(--secondary-color);
-  background-color: #faf8ff;
-  transition: 0.3s;
-}
-
-.form-select:focus {
-  border-color: var(--accent-color);
-  box-shadow: 0 0 5px rgba(245,173,0,0.5);
-}
-
-.btn-filtrar {
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   color: #fff;
-  border: none;
-  border-radius: 25px;
-  padding: 10px 20px;
-  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
 }
 
-.btn-filtrar:hover {
-  transform: scale(1.05);
-  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+.btn-aprovar {
+  background-color: var(--success);
+}
+.btn-aprovar:hover {
+  background-color: #25a25a;
+  transform: scale(1.1);
+}
+
+.btn-recusar {
+  background-color: var(--danger);
+}
+.btn-recusar:hover {
+  background-color: #c0392b;
+  transform: scale(1.1);
+}
+
+/* ===== Responsivo ===== */
+@media (max-width: 992px) {
+  .conteudo { padding: 20px; }
+  table { font-size: 0.85rem; }
+  .btn-filtrar { width: 100%; }
 }

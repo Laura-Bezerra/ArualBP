@@ -1,0 +1,146 @@
+:root {
+  --primary-color: #441281;
+  --secondary-color: #915ad3;
+  --accent-color: #f5ad00;
+  --bg-color: #f4f2f8;
+  --text-color: #2c2c2c;
+  --white: #ffffff;
+}
+
+/* ===== Modal Principal ===== */
+#infoModal .modal-content {
+  border-radius: 18px;
+  border: none;
+  background: var(--white);
+  box-shadow: 0 10px 30px rgba(68, 18, 129, 0.2);
+  animation: modalSlide 0.3s ease;
+}
+
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Cabeçalho ===== */
+#infoModal .modal-header {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: var(--white);
+  border-bottom: none;
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  padding: 18px 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#infoModal .modal-header i {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+}
+
+#infoModal .modal-title {
+  font-weight: 600;
+  font-size: 1.25rem;
+}
+
+/* ===== Corpo ===== */
+#infoModal .modal-body {
+  padding: 25px 30px;
+  background-color: var(--bg-color);
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+#infoModal table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+}
+
+#infoModal th {
+  text-align: right;
+  color: var(--primary-color);
+  font-weight: 600;
+  width: 30%;
+  padding-right: 15px;
+  vertical-align: top;
+  font-size: 0.95rem;
+}
+
+#infoModal td {
+  color: var(--text-color);
+  font-weight: 400;
+  font-size: 0.95rem;
+  padding: 5px 0;
+}
+
+/* Linhas alternadas (efeito visual suave) */
+#infoModal tr:nth-child(odd) td {
+  background-color: rgba(145, 90, 211, 0.05);
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+/* ===== Rodapé ===== */
+#infoModal .modal-footer {
+  background-color: #faf8ff;
+  border-top: 1px solid #eee;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+  padding: 15px 25px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+#infoModal .btn-close {
+  filter: invert(1);
+  opacity: 0.8;
+}
+
+#infoModal .btn-close:hover {
+  opacity: 1;
+}
+
+/* ===== Botão de fechar ===== */
+#infoModal .btn-secondary {
+  background: var(--accent-color);
+  border: none;
+  color: white;
+  font-weight: 600;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  padding: 8px 18px;
+}
+
+#infoModal .btn-secondary:hover {
+  background: #e59c00;
+  transform: scale(1.05);
+}
+
+/* ===== Responsividade ===== */
+@media (max-width: 768px) {
+  #infoModal th {
+    text-align: left;
+    display: block;
+    width: 100%;
+    padding-right: 0;
+    color: var(--secondary-color);
+  }
+
+  #infoModal td {
+    display: block;
+    padding-left: 10px;
+    font-size: 0.9rem;
+  }
+
+  #infoModal table {
+    border-spacing: 0 6px;
+  }
+}
