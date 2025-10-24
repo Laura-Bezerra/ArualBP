@@ -9,7 +9,6 @@ $setor_id = $_GET['setor_id'] ?? '';
 $usuarios = [];
 
 if ($nivel === 'admin') {
-    // Admin → todos os usuários ou os de um setor
     if (!empty($setor_id)) {
         $sql = "SELECT DISTINCT u.id, u.nome
                 FROM usuarios u
@@ -20,7 +19,6 @@ if ($nivel === 'admin') {
         $sql = "SELECT id, nome FROM usuarios ORDER BY nome";
     }
 } elseif ($nivel === 'gerente') {
-    // Gerente → apenas usuários dos setores que ele gerencia
     if (!empty($setor_id)) {
         $sql = "
             SELECT DISTINCT u.id, u.nome
@@ -39,7 +37,6 @@ if ($nivel === 'admin') {
             ORDER BY u.nome";
     }
 } else {
-    // Usuário → apenas ele mesmo
     $sql = "SELECT id, nome FROM usuarios WHERE id = $usuario_id";
 }
 

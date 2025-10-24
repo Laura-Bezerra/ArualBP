@@ -1,50 +1,314 @@
+/* ============================
+   PALETA E BASE
+============================ */
+:root {
+  --primary-color: #441281;
+  --secondary-color: #915ad3;
+  --accent-color: #f5ad00;
+  --bg-color: #f4f2f8;
+  --white: #ffffff;
+  --text-dark: #2c2c2c;
+}
+
 body {
-    background-color: #d9d9d9;
-    color: #441281;
-    font-family: Arial, sans-serif;
+  background: radial-gradient(circle at top right, #f8f5ff, #eae2ff);
+  font-family: "Poppins", sans-serif;
+  color: var(--text-dark);
+  margin-top: 90px;
+  padding-bottom: 60px;
+  overflow-x: hidden;
 }
 
-.solicitacoes-table {
-    width: 100%;
-    border-collapse: collapse;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    border-radius: 10px;
+/* ============================
+   CONTAINER PRINCIPAL
+============================ */
+.container {
+  max-width: 1450px;
+  margin: 70px auto;
+  padding: 25px 35px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 25px rgba(68, 18, 129, 0.15);
+  animation: fadeIn 0.7s ease-in-out;
 }
 
-.solicitacoes-table th, .solicitacoes-table td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: left;
+/* Animação de entrada suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-.solicitacoes-table th {
-    background-color: #915ad3;
-    color: #fff;
+/* ============================
+   TÍTULO
+============================ */
+h1 {
+  text-align: center;
+  color: var(--primary-color);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 40px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  position: relative;
 }
 
-.solicitacoes-table tr:hover {
-    background-color: #f1f1f1;
+h1::after {
+  content: "";
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  margin: 12px auto 0;
+  border-radius: 2px;
 }
 
-.no-results, .error {
-    text-align: center;
-    color: red;
-    font-size: 18px;
+/* ============================
+   FILTROS (NOVO DESIGN)
+============================ */
+.filtros {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255,255,255,0.95), rgba(250,245,255,0.8));
+  border-radius: 18px;
+  padding: 25px 30px;
+  box-shadow: 0 8px 24px rgba(68, 18, 129, 0.15);
+  border: 1px solid rgba(145, 90, 211, 0.3);
+  overflow: hidden;
+  transition: 0.4s ease;
 }
 
-#modalSolicitacao .modal-header {
-  background: linear-gradient(90deg, #441281, #915ad3);
-  color: #fff;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+/* Efeito de brilho interno animado */
+.filtros::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at top left, rgba(245,173,0,0.25), transparent 60%);
+  animation: filtro-glow 5s infinite alternate;
+  pointer-events: none;
 }
-#modalSolicitacao .form-select,
-#modalSolicitacao .form-control {
-  border-radius: 8px;
-  border: 2px solid #915ad3;
+
+@keyframes filtro-glow {
+  0% { transform: rotate(0deg); opacity: 0.7; }
+  100% { transform: rotate(360deg); opacity: 1; }
 }
-#modalSolicitacao .btn-primary {
-  background: linear-gradient(90deg, #441281, #915ad3);
+
+/* Labels com ícone */
+.filtros label {
+  color: var(--primary-color);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  margin-bottom: 5px;
+}
+
+.filtros label::before {
+  content: "🔍";
+  font-size: 1rem;
+  opacity: 0.6;
+  transition: transform 0.3s;
+}
+
+.filtros label:hover::before {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+/* Campos de entrada */
+.filtros .form-control,
+.filtros .form-select {
+  border-radius: 12px;
+  border: 2px solid transparent;
+  border-color: #a493f0;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(6px);
+  transition: 0.3s ease;
+  box-shadow: inset 0 0 0 rgba(0,0,0,0);
+}
+
+.filtros .form-control:focus,
+.filtros .form-select:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 10px rgba(145,90,211,0.4);
+  background: rgba(255,255,255,0.95);
+}
+
+/* Botão de filtro com brilho */
+.filtros .btn {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   border: none;
+  border-radius: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(68, 18, 129, 0.25);
+  transition: 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.filtros .btn::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.3), transparent);
+  transform: skewX(-25deg);
+  transition: 0.5s;
+}
+
+.filtros .btn:hover::after {
+  left: 130%;
+}
+
+.filtros .btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(145,90,211,0.35);
+}
+
+/* Espaçamento interno entre campos */
+.filtros .col-md-2,
+.filtros .col-md-3,
+.filtros .col-md-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Animação sutil de foco em toda a box */
+.filtros:focus-within {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 14px rgba(245,173,0,0.25);
+  transform: scale(1.01);
+}
+
+/* ============================
+   TABELA
+============================ */
+.solicitacoes-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(68,18,129,0.1);
+  margin-top: 25px;
+  animation: fadeIn 0.5s ease;
+}
+
+.thead-roxo {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  color: #fff;
+  font-weight: 600;
+}
+
+.solicitacoes-table th,
+.solicitacoes-table td {
+  padding: 12px 14px;
+  text-align: left;
+  font-size: 0.95rem;
+  vertical-align: middle;
+}
+
+.solicitacoes-table tbody tr {
+  transition: all 0.3s ease;
+}
+
+.solicitacoes-table tbody tr:hover {
+  background: #f9f6ff;
+  transform: scale(1.01);
+}
+
+/* ============================
+   STATUS
+============================ */
+.badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+
+.badge.bg-warning {
+  background-color: #fff4cc !important;
+  color: #8a6d00;
+}
+
+.badge.bg-success {
+  background-color: #c7f7d0 !important;
+  color: #1e8449;
+}
+
+.badge.bg-danger {
+  background-color: #ffd2d2 !important;
+  color: #a93226;
+}
+
+/* ============================
+   BOTÃO VOLTAR
+============================ */
+.btn-primary {
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border: none;
+  border-radius: 25px;
+  font-weight: 600;
+  padding: 10px 22px;
+  transition: 0.3s;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+}
+
+/* ============================
+   ANIMAÇÕES DE HOVER NAS LINHAS
+============================ */
+.solicitacoes-table tbody tr td:first-child {
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+/* Efeito de brilho suave nas linhas aprovadas */
+.solicitacoes-table tbody tr td .bg-success {
+  box-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+}
+
+/* Efeito pulsante nos status pendentes */
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 rgba(245,173,0,0.6); }
+  70% { box-shadow: 0 0 8px rgba(245,173,0,0.8); }
+  100% { box-shadow: 0 0 0 rgba(245,173,0,0.6); }
+}
+
+.badge.bg-warning {
+  animation: pulse 2s infinite;
+}
+
+/* ============================
+   RESPONSIVIDADE
+============================ */
+@media (max-width: 992px) {
+  .container {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 0.9rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+  }
 }

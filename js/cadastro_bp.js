@@ -63,3 +63,10 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+
+// Garante que o select fica por cima dentro dos modais
+document.querySelectorAll('select').forEach(sel => {
+  sel.addEventListener('mousedown', () => sel.style.zIndex = '99999');
+  sel.addEventListener('blur', () => sel.style.zIndex = '1');
+});

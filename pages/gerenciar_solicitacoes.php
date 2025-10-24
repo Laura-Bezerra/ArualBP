@@ -68,114 +68,117 @@ $result = $conexao->query($sql);
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <title>Gerenciar Solicitações | Controle Patrimonial</title>
     <link rel="stylesheet" href="../css/gerenciar_solicitacoes.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
+
 <body>
-<div class="conteudo">
-    <h1>Gerenciar Solicitações</h1>
+    <div class="conteudo">
+        <h1>Gerenciar Solicitações</h1>
 
-    <!-- ===== FILTROS ===== -->
-    <form method="GET" class="form-filtros">
-        <div class="filtros-container">
-            <div class="filtro">
-                <label for="setor">Filtrar por Setor:</label>
-                <select name="setor" id="setor" class="form-select">
-                    <option value="">Todos os setores</option>
-                    <?php while ($setor = $resultSetores->fetch_assoc()): ?>
-                        <option value="<?= $setor['id'] ?>" <?= ($setor['id'] == $filtro_setor) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($setor['nome']) ?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
+        <!-- ===== FILTROS ===== -->
+        <form method="GET" class="form-filtros">
+            <div class="filtros-container">
+                <div class="filtro">
+                    <label for="setor">Filtrar por Setor:</label>
+                    <select name="setor" id="setor" class="form-select">
+                        <option value="">Todos os setores</option>
+                        <?php while ($setor = $resultSetores->fetch_assoc()): ?>
+                            <option value="<?= $setor['id'] ?>" <?= ($setor['id'] == $filtro_setor) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($setor['nome']) ?>
+                            </option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
+
+                <div class="filtro">
+                    <label for="usuario">Filtrar por Usuário:</label>
+                    <select name="usuario" id="usuario" class="form-select">
+                        <option value="">Todos os usuários</option>
+                        <?php while ($usuario = $resultUsuarios->fetch_assoc()): ?>
+                            <option value="<?= $usuario['id'] ?>" <?= ($usuario['id'] == $filtro_usuario) ? 'selected' : '' ?>>
+                                <?= htmlspecialchars($usuario['nome']) ?>
+                            </option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-filtrar">
+                    <i class="fa-solid fa-filter"></i> Filtrar
+                </button>
             </div>
+        </form>
 
-            <div class="filtro">
-                <label for="usuario">Filtrar por Usuário:</label>
-                <select name="usuario" id="usuario" class="form-select">
-                    <option value="">Todos os usuários</option>
-                    <?php while ($usuario = $resultUsuarios->fetch_assoc()): ?>
-                        <option value="<?= $usuario['id'] ?>" <?= ($usuario['id'] == $filtro_usuario) ? 'selected' : '' ?>>
-                            <?= htmlspecialchars($usuario['nome']) ?>
-                        </option>
-                    <?php endwhile; ?>
-                </select>
-            </div>
-
-            <button type="submit" class="btn-filtrar">
-                <i class="fa-solid fa-filter"></i> Filtrar
-            </button>
-        </div>
-    </form>
-
-   <!-- ===== TABELA ===== -->
-    <table>
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Usuário</th>
-                <th>Setor</th>
-                <th>Item</th>
-                <th>Tipo</th>
-                <th>Campo Alterado</th>
-                <th>Valor Atual</th>
-                <th>Novo Valor</th>
-                <th>Motivo</th>
-                <th>Status</th>
-                <th>Data Abertura</th>
-                <th>Data Aprovação</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if ($result->num_rows > 0): ?>
-                <?php while ($row = $result->fetch_assoc()): ?>
-                    <tr>
-                        <td><?= $row['id']; ?></td>
-                        <td><?= htmlspecialchars($row['usuario_nome']); ?></td>
-                        <td><?= htmlspecialchars($row['setor_nome']); ?></td>
-                        <td><?= $row['nome_item'] ? htmlspecialchars($row['nome_item']) : '<em class="text-muted">Item excluído</em>'; ?></td>
-                        <td><?= ucfirst($row['tipo']); ?></td>
-                        <td><?= htmlspecialchars($row['campo_alterado'] ?? '-'); ?></td>
-                        <td><?= htmlspecialchars($row['valor_atual'] ?? '-'); ?></td>
-                        <td><?= htmlspecialchars($row['novo_valor'] ?? '-'); ?></td>
-                        <td><?= htmlspecialchars($row['motivo']); ?></td>
-                        <td class="<?= $row['status'] === 'pendente' ? 'text-warning' : ($row['status'] === 'aprovado' ? 'text-success' : 'text-danger'); ?>">
-                            <?= ucfirst($row['status']); ?>
-                        </td>
-                        <td><?= date('d/m/Y H:i', strtotime($row['data_solicitacao'])) ?></td>
-                        <td>
-                            <?= $row['data_aprovacao'] ? date('d/m/Y H:i', strtotime($row['data_aprovacao'])) : '<em class="text-muted">—</em>' ?>
-                        </td>
-                        <td class="acoes">
-                            <?php if ($row['status'] === 'pendente'): ?>
-                                <form action="../actions/status_solicitacao.php" method="post" class="acoes">
-                                    <input type="hidden" name="solicitacao_id" value="<?= $row['id']; ?>">
-                                    <button name="acao" value="aprovar" type="submit" class="btn-aprovar" title="Aprovar">
-                                        <i class="fa-solid fa-check"></i>
-                                    </button>
-                                    <button name="acao" value="recusar" type="submit" class="btn-recusar" title="Recusar">
-                                        <i class="fa-solid fa-xmark"></i>
-                                    </button>
-                                </form>
-                            <?php else: ?>
-                                <span>-</span>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                <?php endwhile; ?>
-            <?php else: ?>
+        <!-- ===== TABELA ===== -->
+        <table>
+            <thead>
                 <tr>
-                    <td colspan="13" style="text-align:center; color:gray;">Nenhuma solicitação encontrada.</td>
+                    <th>ID</th>
+                    <th>Usuário</th>
+                    <th>Setor</th>
+                    <th>Item</th>
+                    <th>Tipo</th>
+                    <th>Campo Alterado</th>
+                    <th>Valor Atual</th>
+                    <th>Novo Valor</th>
+                    <th>Motivo</th>
+                    <th>Status</th>
+                    <th>Data Abertura</th>
+                    <th>Data Aprovação</th>
+                    <th>Ações</th>
                 </tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                <?php if ($result->num_rows > 0): ?>
+                    <?php while ($row = $result->fetch_assoc()): ?>
+                        <tr>
+                            <td><?= $row['id']; ?></td>
+                            <td><?= htmlspecialchars($row['usuario_nome']); ?></td>
+                            <td><?= htmlspecialchars($row['setor_nome']); ?></td>
+                            <td><?= $row['nome_item'] ? htmlspecialchars($row['nome_item']) : '<em class="text-muted">Item excluído</em>'; ?></td>
+                            <td><?= ucfirst($row['tipo']); ?></td>
+                            <td><?= htmlspecialchars($row['campo_alterado'] ?? '-'); ?></td>
+                            <td><?= htmlspecialchars($row['valor_atual'] ?? '-'); ?></td>
+                            <td><?= htmlspecialchars($row['novo_valor'] ?? '-'); ?></td>
+                            <td><?= htmlspecialchars($row['motivo']); ?></td>
+                            <td class="<?= $row['status'] === 'pendente' ? 'text-warning' : ($row['status'] === 'aprovado' ? 'text-success' : 'text-danger'); ?>">
+                                <?= ucfirst($row['status']); ?>
+                            </td>
+                            <td><?= date('d/m/Y H:i', strtotime($row['data_solicitacao'])) ?></td>
+                            <td>
+                                <?= $row['data_aprovacao'] ? date('d/m/Y H:i', strtotime($row['data_aprovacao'])) : '<em class="text-muted">—</em>' ?>
+                            </td>
+                            <td class="acoes">
+                                <?php if ($row['status'] === 'pendente'): ?>
+                                    <form action="../actions/status_solicitacao.php" method="post" class="acoes">
+                                        <input type="hidden" name="solicitacao_id" value="<?= $row['id']; ?>">
+                                        <button name="acao" value="aprovar" type="submit" class="btn-aprovar" title="Aprovar">
+                                            <i class="fa-solid fa-check"></i>
+                                        </button>
+                                        <button name="acao" value="recusar" type="submit" class="btn-recusar" title="Recusar">
+                                            <i class="fa-solid fa-xmark"></i>
+                                        </button>
+                                    </form>
+                                <?php else: ?>
+                                    <span>-</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                    <?php endwhile; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="13" style="text-align:center; color:gray;">Nenhuma solicitação encontrada.</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

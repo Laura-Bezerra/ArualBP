@@ -12,7 +12,7 @@
       </div>
 
       <div class="modal-footer">
-        <button id="btn-imprimir-todas" class="btn btn-warning">🖨️ Imprimir todas</button>
+        <button id="btn-imprimir-todas" class="btn btn-warning">Imprimir todas</button>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
       </div>
     </div>

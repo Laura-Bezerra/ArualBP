@@ -8,7 +8,6 @@ if (isset($_POST['submit'])) {
     $senha = password_hash($_POST['senha'], PASSWORD_DEFAULT);
     $nivel_acesso = $_POST['nivel_acesso'];
 
-    // Verifica se o nome de usuário já existe
     $sql_check = "SELECT id FROM usuarios WHERE usuario = ?";
     $stmt_check = $conexao->prepare($sql_check);
     $stmt_check->bind_param("s", $usuario);
@@ -16,7 +15,6 @@ if (isset($_POST['submit'])) {
     $stmt_check->store_result();
 
     if ($stmt_check->num_rows > 0) {
-        // Usuário já existe
         echo "<script>
                 alert('⚠️ O nome de usuário \"$usuario\" já está em uso. Escolha outro.');
                 window.history.back();
@@ -24,7 +22,6 @@ if (isset($_POST['submit'])) {
         exit;
     }
 
-    // Cadastra novo usuário
     $sql = "INSERT INTO usuarios (nome, email, usuario, senha, nivel_acesso, ativo)
             VALUES (?, ?, ?, ?, ?, 1)";
     $stmt = $conexao->prepare($sql);
@@ -45,7 +42,6 @@ if (isset($_POST['submit'])) {
     }
 }
 
-// === ATUALIZAÇÃO ===
 if (isset($_POST['update'])) {
     $id = intval($_POST['id']);
     $nome = trim($_POST['nome']);
@@ -93,7 +89,6 @@ if (isset($_POST['update'])) {
                   </script>";
         }
     } catch (mysqli_sql_exception $e) {
-        // Tratamento específico para duplicidade ou outros erros SQL
         if (strpos($e->getMessage(), 'Duplicate entry') !== false) {
             echo "<script>
                     alert('⚠️ Este nome de usuário já está sendo utilizado. Escolha outro.');

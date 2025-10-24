@@ -54,8 +54,7 @@
 #infoModal .modal-body {
   padding: 25px 30px;
   background-color: var(--bg-color);
-  border-bottom-left-radius: 18px;
-  border-bottom-right-radius: 18px;
+
 }
 
 #infoModal table {
@@ -143,4 +142,32 @@
   #infoModal table {
     border-spacing: 0 6px;
   }
+}
+
+
+.modal {
+  overflow-y: auto !important; /* 🔹 permite rolar o conteúdo do modal */
+  max-height: 100vh;           /* 🔹 limita o tamanho total do modal à altura da tela */
+}
+
+.modal-open {
+  overflow: hidden; /* 🔹 impede que o body role por trás do modal */
+}
+
+.modal-content {
+  max-height: 100vh;     /* 🔹 o conteúdo ocupa no máximo 90% da tela */
+  overflow-y: auto;     /* 🔹 ativa rolagem interna suave */
+  scrollbar-width: thin; 
+  scrollbar-color: var(--secondary-color) #f3f1fa;
+}
+
+.modal-content::-webkit-scrollbar {
+  width: 8px;
+}
+.modal-content::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 6px;
+}
+.modal-content::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
 }

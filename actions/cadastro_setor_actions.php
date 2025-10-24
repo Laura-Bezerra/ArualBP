@@ -2,13 +2,11 @@
 include_once('../includes/config.php');
 session_start();
 
-// 🔒 Apenas admin
 if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') {
     header('Location: ../login.php');
     exit();
 }
 
-// === INSERÇÃO ===
 if (isset($_POST['submit'])) {
     $nome = trim($_POST['nome']);
     $codigo = strtoupper(trim($_POST['codigo']));
@@ -16,7 +14,6 @@ if (isset($_POST['submit'])) {
 
     // Gera código automaticamente se estiver vazio
     if (empty($codigo)) {
-        // Gera 4 caracteres aleatórios (A-Z + 0-9)
         $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $codigo = '';
         for ($i = 0; $i < 4; $i++) {
@@ -47,7 +44,6 @@ if (isset($_POST['submit'])) {
     exit();
 }
 
-// === ATUALIZAÇÃO ===
 if (isset($_POST['update'])) {
     $id = intval($_POST['id']);
     $nome = trim($_POST['nome']);

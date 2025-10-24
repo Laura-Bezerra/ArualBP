@@ -92,8 +92,17 @@ h2 {
 }
 
 /* ===== Tabela ===== */
-.table {
+.table-wrapper {
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  border-radius: 12px;
+  -webkit-overflow-scrolling: touch;
+}
+
+.container .table {
+  width: 100%;
+  min-width: 750px; /* mantém o layout na página principal */
   border-radius: 12px;
   overflow: hidden;
   background-color: var(--white);
@@ -101,6 +110,17 @@ h2 {
   border-collapse: separate;
   border-spacing: 0;
 }
+
+/* ===== Tabelas dentro de modais ===== */
+.modal .table {
+  min-width: unset; /* remove o limite fixo */
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: none;
+  overflow: visible;
+  border-collapse: collapse;
+}
+
 
 .thead-roxa {
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
@@ -111,6 +131,7 @@ h2 {
 .table thead th {
   padding: 14px 10px;
   vertical-align: middle;
+  white-space: nowrap;
 }
 
 .table tbody td {
@@ -118,11 +139,22 @@ h2 {
   vertical-align: middle;
   font-size: 0.95rem;
   color: var(--text-dark);
+  text-align: center;
+  white-space: nowrap;
 }
 
 .table tbody tr:hover {
   background-color: #faf8ff;
   transition: 0.25s;
+}
+
+/* ===== Scrollbar customizada para tabela ===== */
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: linear-gradient(90deg, var(--secondary-color), var(--primary-color));
+  border-radius: 6px;
 }
 
 /* ===== Ações ===== */
@@ -170,8 +202,21 @@ h2 {
   .form-inline {
     flex-direction: column;
   }
-  .btn-primary, .btn-success {
+  .btn-primary,
+  .btn-success {
     width: 100%;
+  }
+
+  .table-wrapper {
+    margin-top: 10px;
+  }
+
+  .table {
+    min-width: 650px;
+  }
+
+  h2 {
+    font-size: 1.4rem;
   }
 }
 
@@ -229,7 +274,7 @@ h2 {
   background-repeat: no-repeat;
   cursor: pointer;
   position: relative;
-  z-index: 9999; /* Mantém o menu acima de todos */
+  z-index: 9999;
 }
 
 .form-inline select#setor:focus {
@@ -252,4 +297,56 @@ body {
 .btn-primary {
   height: 45px;
   padding: 0 20px;
+}
+
+/* ===============================
+   CORREÇÃO DO CORTE EM SELECTS NOS MODAIS
+================================ */
+.modal-dialog,
+.modal-content,
+.modal-body,
+.row,
+.col-md-6,
+.col-md-3 {
+  overflow: visible !important;
+}
+
+.modal select.form-control,
+.modal select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color: #fff;
+  border: 2px solid #915ad3;
+  border-radius: 10px;
+  padding: 5px 5px;
+  font-size: 1rem;
+  line-height: 1.5;
+  height: auto !important;
+  color: #2c2c2c;
+  width: 100%;
+  background-image: linear-gradient(45deg, transparent 50%, #915ad3 50%),
+                    linear-gradient(135deg, #915ad3 50%, transparent 50%);
+  background-position: calc(100% - 20px) center, calc(100% - 15px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  cursor: pointer;
+}
+
+.modal select option {
+  padding: 2px 2px;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.modal select.form-control:focus {
+  border-color: #441281;
+  box-shadow: 0 0 6px rgba(68, 18, 129, 0.3);
+  outline: none;
+}
+
+.modal {
+  overflow: visible !important;
+  z-index: 1060 !important;
 }

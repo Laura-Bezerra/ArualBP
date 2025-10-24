@@ -1,0 +1,239 @@
+/* =======================================
+   LOGIN - ArualBP (Glass Card + Rounded Squares)
+======================================= */
+
+:root {
+  --roxo: #441281;
+  --lilas: #915ad3;
+  --branco: #ffffff;
+}
+
+body {
+  margin: 0;
+  height: 100vh;
+  font-family: 'Poppins', sans-serif;
+  overflow: hidden;
+  background: radial-gradient(circle at top left, var(--roxo), var(--lilas));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===== Canvas de fundo ===== */
+#bubbles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* ===== Container principal ===== */
+.login-wrapper {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+/* ===== Card ===== */
+.login-card {
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  border-radius: 25px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  max-width: 900px;
+  width: 90%;
+  height: 520px;
+}
+
+/* ===== Lado da imagem ===== */
+.image-side {
+  flex: 1;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: flex;
+  align-items: stretch;
+}
+
+.image-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* cobre tudo, sem bordas */
+  border-radius: 0;
+  display: block;
+}
+
+/* ===== Lado do formulário ===== */
+.form-side {
+  flex: 1;
+  color: white;
+  padding: 60px 50px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-area img {
+  width: 90px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-size: 1.8em;
+}
+
+.subtitle {
+  font-size: 0.9em;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 25px;
+}
+
+/* ===== Form ===== */
+form input {
+  width: 100%;
+  padding: 12px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  font-size: 14px;
+}
+
+form input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  margin-top: 15px;
+  border: none;
+  border-radius: 10px;
+  background: var(--lilas);
+  color: var(--branco);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: #a775e6;
+  transform: scale(1.03);
+}
+
+/* ===== Voltar ===== */
+.backButton {
+  display: inline-block;
+  margin-top: 20px;
+  color: #c9a6ff;
+  font-size: 14px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.backButton:hover {
+  text-decoration: underline;
+}
+
+/* ===== Alertas ===== */
+.alert {
+  background: rgba(202, 85, 85, 0.562);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  font-weight: 500;
+  animation: fadeIn 0.4s ease forwards;
+}
+
+.fade-out {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+
+/* ===== Esqueci minha senha (modal) ===== */
+.forgot-link {
+  display: inline-block;
+  margin-top: 10px;
+  color: #c9a6ff;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.modal-forgot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-forgot.active {
+  display: flex;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 20px;
+  padding: 40px;
+  width: 350px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 4px 25px rgba(0,0,0,0.3);
+}
+
+.modal-content h3 {
+  margin-bottom: 10px;
+  font-size: 1.4em;
+}
+
+.modal-content p {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.8);
+  margin-bottom: 20px;
+}
+
+.btn-cancel {
+  margin-top: 10px;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.2);
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-cancel:hover {
+  background: rgba(255,255,255,0.3);
+}

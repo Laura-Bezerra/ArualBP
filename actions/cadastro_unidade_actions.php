@@ -2,13 +2,11 @@
 include_once('../includes/config.php');
 session_start();
 
-// 🔒 Apenas admin pode executar ações
 if (!isset($_SESSION['nivel_acesso']) || $_SESSION['nivel_acesso'] !== 'admin') {
     header('Location: ../login.php');
     exit();
 }
 
-// === INSERÇÃO DE UNIDADE ===
 if (isset($_POST['submit'])) {
     $nome = trim($_POST['nome']);
     $sigla = strtoupper(trim($_POST['sigla']));
@@ -38,13 +36,12 @@ if (isset($_POST['submit'])) {
     exit();
 }
 
-// === ATUALIZAÇÃO DE UNIDADE ===
 if (isset($_POST['update'])) {
     $id = intval($_POST['id']);
     $nome = trim($_POST['nome']);
     $descricao = trim($_POST['descricao']);
 
-    // Verifica duplicidade de nome (mas ignora a própria unidade)
+    // Verifica duplicidade de nome
     $check = $conexao->prepare("SELECT COUNT(*) AS total FROM unidades WHERE nome = ? AND id != ?");
     $check->bind_param("si", $nome, $id);
     $check->execute();
@@ -58,7 +55,6 @@ if (isset($_POST['update'])) {
         exit;
     }
 
-    // Atualiza apenas nome e descrição
     $sql = "UPDATE unidades SET nome=?, descricao=? WHERE id=?";
     $stmt = $conexao->prepare($sql);
     $stmt->bind_param("ssi", $nome, $descricao, $id);

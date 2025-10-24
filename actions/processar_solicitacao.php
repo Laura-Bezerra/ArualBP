@@ -12,7 +12,6 @@ if (isset($_POST['submit'])) {
     $valor_atual = $tipo === 'alteracao' ? trim($_POST['valor_atual']) : null;
     $novo_valor = $tipo === 'alteracao' ? trim($_POST['novo_valor']) : null;
 
-    // Busca setor do BP
     $sqlSetor = "SELECT setor_id FROM bps WHERE id = ?";
     $stmt = $conexao->prepare($sqlSetor);
     $stmt->bind_param("i", $bp_id);
@@ -20,7 +19,6 @@ if (isset($_POST['submit'])) {
     $resultSetor = $stmt->get_result()->fetch_assoc();
     $setor_id = $resultSetor['setor_id'];
 
-    // Inserção
     $sqlInsert = "INSERT INTO solicitacoes 
         (bp_id, setor_id, usuario_id, tipo, campo_alterado, valor_atual, novo_valor, descricao, status, data_solicitacao)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'pendente', NOW())";

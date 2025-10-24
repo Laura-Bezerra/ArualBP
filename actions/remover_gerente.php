@@ -2,7 +2,6 @@
 session_start();
 include_once('../includes/config.php');
 
-// 🔒 Restrição: apenas admin ou gerente podem remover
 if (!isset($_SESSION['id']) || ($_SESSION['nivel_acesso'] !== 'admin' && $_SESSION['nivel_acesso'] !== 'gerente')) {
     header('Location: ../login.php');
     exit();
@@ -11,7 +10,6 @@ if (!isset($_SESSION['id']) || ($_SESSION['nivel_acesso'] !== 'admin' && $_SESSI
 if (isset($_GET['setor_id'])) {
     $setor_id = intval($_GET['setor_id']);
 
-    // 🔹 Primeiro, verificar se o setor tem um gerente
     $sqlGerente = "SELECT gerente_id FROM setores WHERE id = ?";
     $stmtGerente = $conexao->prepare($sqlGerente);
     $stmtGerente->bind_param("i", $setor_id);
@@ -22,7 +20,6 @@ if (isset($_GET['setor_id'])) {
         $gerente_id = $resultGerente->fetch_assoc()['gerente_id'];
 
         if ($gerente_id) {
-    // 🔹 Verifica se o gerente possui solicitações vinculadas a ESTE setor específico
             $sqlCheck = "
                 SELECT COUNT(*) AS total
                 FROM solicitacoes s
@@ -40,7 +37,6 @@ if (isset($_GET['setor_id'])) {
             $totalSolic = $resultCheck->fetch_assoc()['total'];
 
             if ($totalSolic > 0) {
-                // ❌ Impede exclusão se houver solicitações vinculadas
                 echo "<script>
                     alert('Não é possível remover este gerente, pois ele possui solicitações vinculadas.');
                     window.location.href = '../pages/cadastro_setor.php';

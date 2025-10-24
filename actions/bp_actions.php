@@ -5,7 +5,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'] ?? null;
     $setor_id = (int)($_POST['setor_id'] ?? 0);
 
-    // Campos do formulário
     $nome_item          = trim($_POST['nome_item'] ?? '');
     $descricao          = trim($_POST['descricao'] ?? '');
     $marca              = trim($_POST['marca'] ?? '');
@@ -21,11 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $estado_item        = trim($_POST['estado_item'] ?? '');
     $observacoes        = trim($_POST['observacoes'] ?? '');
 
-    /* =========================================================
-       ATUALIZAÇÃO
-    ============================================================*/
     if ($id) {
-        // 1️⃣ Buscar quantidade e código atuais
         $sqlFetch = "SELECT quantidade, codigo_bp, setor_id FROM bps WHERE id = ?";
         $stmtFetch = $conexao->prepare($sqlFetch);
         $stmtFetch->bind_param("i", $id);
@@ -42,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $codigo_base = $rowAtual['codigo_bp'];
         $setor_id_atual = (int)$rowAtual['setor_id'];
 
-        // 2️⃣ Se ainda não há código (legado), gera agora com o CÓDIGO do setor
+
         if (empty($codigo_base)) {
             $sqlSetor = "SELECT codigo FROM setores WHERE id = ? LIMIT 1";
             $stmtSetor = $conexao->prepare($sqlSetor);
@@ -59,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtUpdCode->execute();
         }
 
-        // 3️⃣ Atualiza o BP
+
         $sqlUp = "UPDATE bps 
                   SET nome_item=?, descricao=?, marca=?, modelo=?, categoria_id=?, quantidade=?, local=?, fornecedor=?, 
                       data_aquisicao=?, custo_unitario=?, custo_total=?, condicao_aquisicao=?, estado_item=?, observacoes=? 
@@ -74,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         );
         $stmtUp->execute();
 
-        // 4️⃣ Sincroniza etiquetas se quantidade mudou
         if ($quantidade > $qtd_antiga) {
             // Adiciona novas
             for ($i = $qtd_antiga + 1; $i <= $quantidade; $i++) {
@@ -94,9 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtDel->execute();
         }
     } 
-    /* =========================================================
-       INSERÇÃO
-    ============================================================*/
+
     else {
         $sqlIns = "INSERT INTO bps 
                    (setor_id, nome_item, descricao, marca, modelo, categoria_id, quantidade, local, fornecedor, 
@@ -114,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($stmtIns->execute()) {
             $bp_id = $conexao->insert_id;
 
-            // 🔸 Busca o código do setor
             $sqlSetor = "SELECT codigo FROM setores WHERE id = ? LIMIT 1";
             $stmtSetor = $conexao->prepare($sqlSetor);
             $stmtSetor->bind_param("i", $setor_id);
@@ -129,7 +120,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmtUpdCode->bind_param("si", $codigo_base, $bp_id);
             $stmtUpdCode->execute();
 
-            // 🔸 Cria etiquetas para cada unidade
             for ($i = 1; $i <= $quantidade; $i++) {
                 $sufixo = $quantidade > 1 ? '-' . $i : '';
                 $codigo_etiqueta = $codigo_base . $sufixo;
@@ -144,24 +134,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit();
 }
 
-/* =========================================================
-   EXCLUSÃO
-============================================================*/
+
 if (isset($_GET['delete_id'])) {
     $delete_id = (int)$_GET['delete_id'];
     $setor_id = (int)$_GET['setor_id'];
 
-    // 🔹 Remove etiquetas
     $stmtDelEtq = $conexao->prepare("DELETE FROM etiquetas_bp WHERE bp_id = ?");
     $stmtDelEtq->bind_param("i", $delete_id);
     $stmtDelEtq->execute();
 
-    // 🔹 Remove solicitações associadas a este item (bp_id)
     $stmtDelSolic = $conexao->prepare("DELETE FROM solicitacoes WHERE bp_id = ?");
     $stmtDelSolic->bind_param("i", $delete_id);
     $stmtDelSolic->execute();
 
-    // 🔹 Remove o BP
     $stmtDelBP = $conexao->prepare("DELETE FROM bps WHERE id = ?");
     $stmtDelBP->bind_param("i", $delete_id);
     $stmtDelBP->execute();

@@ -2,7 +2,6 @@
 session_start();
 require_once('../includes/config.php');
 
-// Pega dados da sessão
 $nivel = $_SESSION['nivel_acesso'] ?? '';
 $usuario_id = $_SESSION['id'] ?? '';
 

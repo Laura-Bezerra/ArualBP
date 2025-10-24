@@ -2,7 +2,6 @@
 include_once('../includes/config.php');
 session_start();
 
-// 🔒 Apenas admin
 if (!isset($_SESSION['id']) || !in_array($_SESSION['nivel_acesso'], ['gerente', 'admin'])) {
     header('Location: login.php');
     exit();
@@ -12,7 +11,6 @@ if (!isset($_SESSION['id']) || !in_array($_SESSION['nivel_acesso'], ['gerente', 
 if (isset($_POST['submit'])) {
     $nome = trim($_POST['nome']);
 
-    // Evita duplicidade
     $check = $conexao->prepare("SELECT COUNT(*) AS total FROM categorias WHERE nome = ?");
     $check->bind_param("s", $nome);
     $check->execute();
@@ -35,12 +33,10 @@ if (isset($_POST['submit'])) {
     exit();
 }
 
-// Atualização
 if (isset($_POST['update'])) {
     $id = intval($_POST['id']);
     $nome = trim($_POST['nome']);
 
-    // Evita duplicidade ao atualizar
     $check = $conexao->prepare("SELECT COUNT(*) AS total FROM categorias WHERE nome = ? AND id != ?");
     $check->bind_param("si", $nome, $id);
     $check->execute();

@@ -10,7 +10,6 @@ if (isset($_GET['bp_id']) && isset($_GET['campo'])) {
     $bp_id = intval($_GET['bp_id']);
     $campo = $_GET['campo'];
 
-    // Campos permitidos (por segurança)
     $campos_permitidos = [
         'nome_item', 'descricao', 'marca', 'modelo', 'quantidade',
         'local', 'fornecedor', 'custo_unitario', 'custo_total',

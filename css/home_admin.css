@@ -1,0 +1,333 @@
+/* ================================
+   ARUALBP - HOME DASHBOARD (v7)
+   Estável, fluido e responsivo
+================================= */
+:root {
+  --roxo: #441281;
+  --lilas: #915ad3;
+  --dourado: #f5ad00;
+  --bg: #f8f6ff;
+  --white: #fff;
+  --cinza: #f3f1fa;
+}
+
+/* ===== BASE ===== */
+body {
+  background: linear-gradient(135deg, #faf7ff 0%, #f3edff 100%);
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding-top: 180px;
+  color: #2c2c2c;
+}
+
+/* ===== CONTAINER PRINCIPAL ===== */
+.container-dashboard {
+  width: 90%;
+  max-width: 1300px;
+  margin: 0 auto 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  padding-top: 30px;
+}
+
+/* ================================
+   CARDS DE RESUMO
+================================= */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 25px;
+  align-items: stretch;
+}
+
+.card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(68, 18, 129, 0.9), rgba(145, 90, 211, 0.9));
+  border-radius: 18px;
+  padding: 28px 24px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  text-align: left;
+  box-shadow: 0 8px 22px rgba(68, 18, 129, 0.25);
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  min-height: 180px;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(68, 18, 129, 0.35);
+}
+
+/* ===== Imagem de fundo ===== */
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: var(--img);
+  background-size: cover;
+  background-position: center center;
+  opacity: 0.55;
+  filter: brightness(0.9) saturate(1.1);
+  transition: transform 0.4s ease;
+}
+
+.card:hover::before {
+  transform: scale(1.03);
+}
+
+/* ===== Conteúdo ===== */
+.card-content {
+  position: relative;
+  z-index: 2;
+}
+
+.card h3 {
+  margin: 0;
+  font-size: 1.9rem;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.card p {
+  margin-top: 5px;
+  font-size: 1rem;
+  opacity: 0.95;
+}
+
+/* ===== Filete dourado ===== */
+.card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--dourado);
+  border-top-right-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+/* ===== Imagens ===== */
+.card.bp { --img: url("../includes/img/card-estoque.png"); }
+.card.setores { --img: url("../includes/img/card-setor.png"); }
+.card.usuarios { --img: url("../includes/img/card-usuario.png"); }
+.card.solicitacoes { --img: url("../includes/img/card-solicitacao.png"); }
+.card.valor { --img: url("../includes/img/card-valor.png"); }
+
+/* ================================
+   GRÁFICOS — versão estável e fluida
+================================= */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr; /* esquerda maior */
+  gap: 25px;
+  align-items: stretch;
+}
+
+.chart-card {
+  background: var(--white);
+  border-radius: 18px;
+  padding: 20px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  min-height: 320px; /* 🔹 fixa altura base */
+}
+
+.chart-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 22px rgba(68, 18, 129, 0.15);
+}
+
+.chart-card h4 {
+  color: var(--roxo);
+  font-weight: 600;
+  text-align: center;
+  font-size: 1rem;
+  margin-bottom: 10px;
+}
+
+/* 🔹 Garante que o canvas não distorça */
+.chart-card canvas {
+  width: 100% !important;
+  height: auto !important;
+  flex-grow: 1;
+  max-height: 260px; /* limite seguro */
+  aspect-ratio: 1 / 1 !important;
+}
+
+/* 🔹 Em telas menores, ajusta a proporção */
+@media (max-width: 1024px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+  .chart-card {
+    min-height: 280px;
+  }
+  .chart-card canvas {
+    aspect-ratio: 16 / 9 !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .chart-card canvas {
+    aspect-ratio: 4 / 3 !important;
+    max-height: 220px;
+  }
+}
+
+/* ================================
+   TABELA
+================================= */
+.table-card {
+  background: var(--white);
+  border-radius: 18px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  overflow-x: auto;
+}
+
+.table-card h4 {
+  color: var(--roxo);
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.table-card table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 500px;
+}
+
+.table-card th {
+  background: var(--lilas);
+  color: #fff;
+  padding: 10px;
+  text-align: left;
+}
+
+.table-card td {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+.table-card tr:hover {
+  background: #faf8ff;
+}
+
+/* ================================
+   ATALHOS RÁPIDOS
+================================= */
+.quick-actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 25px;
+}
+
+.action-card {
+  background: linear-gradient(135deg, var(--roxo) 0%, var(--lilas) 100%);
+  color: #fff;
+  border-radius: 16px;
+  padding: 25px 20px;
+  text-align: left;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(68, 18, 129, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.action-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  background: var(--dourado);
+  opacity: 0.8;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+.action-card i {
+  font-size: 2.2rem;
+  color: var(--dourado);
+  transition: transform 0.3s ease;
+  min-width: 50px;
+  text-align: center;
+}
+
+.action-card span {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.action-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(68, 18, 129, 0.25);
+  background: linear-gradient(135deg, var(--lilas) 0%, var(--roxo) 100%);
+  color: #fff;
+}
+
+.action-card:hover i {
+  transform: scale(1.15);
+}
+
+/* ================================
+   RESPONSIVIDADE
+================================= */
+@media (max-width: 1024px) {
+  .charts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart-card canvas {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
+
+  .card {
+    text-align: center;
+    min-height: 150px;
+  }
+
+  .quick-actions {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chart-card {
+    padding: 14px;
+  }
+
+  .table-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .quick-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    min-height: 140px;
+  }
+}

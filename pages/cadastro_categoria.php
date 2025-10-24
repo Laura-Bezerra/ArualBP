@@ -9,7 +9,7 @@ if (!isset($_SESSION['id']) || !in_array($_SESSION['nivel_acesso'], ['gerente', 
     exit();
 }
 
-// Busca categorias existentes
+
 $sql = "SELECT * FROM categorias ORDER BY id DESC";
 $result = $conexao->query($sql);
 ?>

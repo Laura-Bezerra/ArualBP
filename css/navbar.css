@@ -1,61 +1,238 @@
+/* ============================================
+   ARUALBP NAVBAR — MODERNA E RESPONSIVA (v3)
+============================================ */
+
+:root {
+  --roxo: #441281;
+  --lilas: #915ad3;
+  --roxo-escuro: #2e0c5c;
+  --branco: #fff;
+  --cinza-claro: #e5e5e5;
+}
+
+/* ===== BASE ===== */
+body {
+  margin: 0;
+  padding-top: 70px; /* espaço para o navbar fixo */
+}
+
+/* ===== NAVBAR ===== */
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 70px;
+  background: linear-gradient(90deg, var(--roxo), var(--lilas));
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.25);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  max-width: 1400px;
+}
+
+/* ===== LOGO E TÍTULO ===== */
+.nav-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo {
+  height: 52px;
+  width: auto;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,0.8));
+}
+
+.nav-title {
+  color: var(--branco);
+  font-weight: 600;
+  font-size: 1.3rem;
+  letter-spacing: 0.5px;
+}
+
+/* ===== LINKS ===== */
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 25px;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  align-items: center;
+}
+
+.nav-links li {
+  position: relative;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: rgba(255,255,255,0.9);
+  font-weight: 500;
+  padding: 6px 10px;
+  transition: color 0.3s ease;
+  font-size: 15px;
+}
+
+.nav-links a:hover,
+.nav-links li.active a {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ===== INDICADOR DESLIZANTE ===== */
+.nav-indicator {
+  position: absolute;
+  bottom: -4px;
+  height: 3px;
+  background: #fff;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  width: 0;
+  left: 0;
+}
+
+/* ===== USUÁRIO E BOTÃO SAIR ===== */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #fff;
+  font-size: 0.95rem;
+}
+
+.welcome-text {
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.welcome-text b {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ===== BOTÃO SAIR MODERNO ===== */
+.btn-sair-modern {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  color: var(--roxo);
+  font-weight: 600;
+  border-radius: 10px;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.btn-sair-modern:hover {
+  background: linear-gradient(90deg, var(--lilas), var(--roxo));
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(68, 18, 129, 0.3);
+}
+
+/* ===== MENU MOBILE (hambúrguer) ===== */
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 40px;
+  height: 40px;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 24px;
+  height: 3px;
+  background: #fff;
+  margin: 4px 0;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+/* Animação do X */
+.menu-toggle.active span:nth-child(1) {
+  transform: rotate(45deg) translateY(8px);
+}
+.menu-toggle.active span:nth-child(2) {
+  opacity: 0;
+}
+.menu-toggle.active span:nth-child(3) {
+  transform: rotate(-45deg) translateY(-8px);
+}
+
+/* ===============================
+   RESPONSIVIDADE
+================================ */
+@media (max-width: 992px) {
+  .nav-container {
+    width: 92%;
+  }
+
+  .nav-title {
+    font-size: 1.1rem;
+  }
+
+  .nav-links {
     position: fixed;
-    top: 0;
+    top: 70px;
     left: 0;
-    right: 0;
-    background: #441281;
-    z-index: 1000;
-    border-radius: 0 0 15px 15px;
-    border-bottom: none;
+    width: 100%;
+    flex-direction: column;
+    background: linear-gradient(180deg, var(--roxo), var(--lilas));
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    z-index: 999;
+    padding: 0;
+  }
+
+  .nav-links.open {
+    max-height: 350px;
+    padding: 15px 0;
+  }
+
+  .nav-links li {
+    text-align: center;
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+
+  .nav-right {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
 }
 
-.navbar .navbar-brand {
-    color: #f5ad00;
-}
+@media (max-width: 600px) {
+  .nav-title {
+    display: none;
+  }
 
-.navbar .navbar-nav .nav-link {
-    color: #f5ad00;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
-    padding: 10px 30px;
-}
-
-.navbar .navbar-nav .nav-link:hover {
-    background-color: #f5ad00;
-    color: white;
-}
-
-.custom-navbar {
-    background-color: #512983;
-}
-
-.custom-navbar .navbar-brand {
-    color: #f5ad00 !important;
-    font-weight: bold;
-}
-
-.custom-navbar .btn-danger {
-    background-color: #f5ad00;
-    border: none;
-    color: #441281;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.custom-navbar .btn-danger:hover {
-    background-color: #d9d9d9;
-    color: #441281;
-}
-
-.navbar .navbar-nav .nav-link {
-    color: #f5ad00;
-    transition: background-color 0.3s ease;
-    border-radius: 5px;
-    padding: 10px 30px;
-}
-
-
-.navbar .navbar-nav .nav-link:hover {
-    background-color: #f5ad00;
-    color: #441281;
+  .nav-logo {
+    height: 46px;
+  }
 }

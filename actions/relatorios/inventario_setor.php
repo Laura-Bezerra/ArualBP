@@ -55,16 +55,13 @@ if ($nivel === 'admin') {
     if (!empty($setor_id)) {
         $filtros[] = "s.id = " . intval($setor_id);
     }
-}
-elseif ($nivel === 'gerente') {
+} elseif ($nivel === 'gerente') {
     if (!empty($setor_id)) {
         $filtros[] = "s.id = " . intval($setor_id) . " AND s.gerente_id = " . intval($usuario_id);
     } else {
         $filtros[] = "s.gerente_id = " . intval($usuario_id);
     }
-}
-
-else {
+} else {
     if (!empty($setor_id)) {
         $filtros[] = "s.id = " . intval($setor_id) . " 
                       AND s.id IN (SELECT setor_id FROM setor_usuarios WHERE usuario_id = " . intval($usuario_id) . ")";
