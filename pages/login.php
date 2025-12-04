@@ -64,14 +64,16 @@
 
 
         <a href="#" class="forgot-link" onclick="openForgotModal()">Esqueci minha senha</a>
-
+        
         <!-- Modal Esqueci Minha Senha -->
         <div id="forgotModal" class="modal-forgot">
           <div class="modal-content">
             <h3>Redefinir senha</h3>
             <p>Digite o e-mail vinculado à sua conta ArualBP</p>
+        
             <form id="forgotForm" method="POST" action="../actions/forgotPassword.php">
               <input type="email" name="email" placeholder="Seu e-mail" required>
+              
               <button type="submit" class="btn-login">Enviar link</button>
               <button type="button" class="btn-cancel" onclick="closeForgotModal()">Cancelar</button>
             </form>
