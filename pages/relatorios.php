@@ -26,8 +26,6 @@ include_once('../includes/config.php');
                 <label for="tipo_relatorio">Tipo de Relatório:</label>
                 <select name="tipo_relatorio" id="tipo_relatorio" class="form-select" required>
                     <option value="">Selecione</option>
-                    <option value="bps_setor">BPs por Setor</option>
-                    <option value="bps_data">BPs por Período</option>
                     <?php if ($_SESSION['nivel_acesso'] === 'admin') { ?>
                         <option value="usuarios">Usuários do Sistema (Apenas Admin)</option>
                     <?php } ?>

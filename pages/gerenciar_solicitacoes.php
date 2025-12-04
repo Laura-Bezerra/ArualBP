@@ -162,9 +162,9 @@ $result = $conexao->query($sql);
                                         <button name="acao" value="recusar" type="submit" class="btn-recusar" title="Recusar">
                                             <i class="fa-solid fa-xmark"></i>
                                         </button>
+                                        
                                     </form>
                                 <?php else: ?>
-                                    <span>-</span>
                                 <?php endif; ?>
                             </td>
                         </tr>

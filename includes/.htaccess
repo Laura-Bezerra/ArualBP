@@ -1,0 +1,5 @@
+<FilesMatch "\.php$">
+    Require all denied
+</FilesMatch>
+
+Require all granted

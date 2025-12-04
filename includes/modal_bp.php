@@ -85,8 +85,8 @@
               <select name="estado_item" class="form-control" required>
                 <option value="">Selecione</option>
                 <option value="Bom">Bom</option>
-                <option value="Em manutenção">Em manutenção</option>
-                <option value="Mau Estado">Mau Estado</option>
+                <option value="Apresentando defeitos recorrentes">Apresentando defeitos recorrentes</option>
+                <option value="Precisando trocar">Precisando trocar</option>
               </select>
             </div>
 

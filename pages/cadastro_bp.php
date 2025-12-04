@@ -57,7 +57,7 @@ $resultBens = $conexao->query($sqlBens);
 
 <body>
     <div class="container">
-        <h2 class="text-center mb-4">Cadastro e Gerenciamento de BPs</h2>
+        <h2 class="text-center mb-4">Cadastro e Gerenciamento de Inventário</h2>
 
         <!-- Filtro por setor -->
         <form method="POST" class="form-inline mb-3">
@@ -76,7 +76,7 @@ $resultBens = $conexao->query($sqlBens);
         <!-- Botão de adicionar -->
         <?php if (!empty($setor_id)): ?>
             <button type="button" class="btn btn-success mb-3" data-bs-toggle="modal" data-bs-target="#addModal">
-                Adicionar Novo BP
+                Adicionar novo item no inventário
             </button>
         <?php endif; ?>
 
