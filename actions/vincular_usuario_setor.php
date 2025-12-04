@@ -9,4 +9,4 @@ if (!empty($_POST['setor_id']) && !empty($_POST['usuario_id'])) {
 
 header("Location: ../pages/cadastro_setor.php");
 exit;
-?>s
+?>
